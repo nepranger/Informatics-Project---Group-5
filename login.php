@@ -48,9 +48,9 @@ if (!isset($password) || (strlen($password) < 6)){
 //check if we already have a username that matches the one the user entered
 if($isComplete){
     // set up a query to check if this username is already in the database
-    $query = "SELECT id, hashedpass FROM account WHERE username ='$username'";
+    $query = "SELECT id, hashedpass FROM tables WHERE username ='$username'";
     
-    //we need to now run the query
+    //we need to now run the queryable
     $result = queryDB($query, $db);
     
     //make sure the username is correct here
