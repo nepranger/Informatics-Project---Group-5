@@ -16,6 +16,31 @@ $data = json_decode(file_get_contents('php://input'), true);
 $username = $data['username'];
 $password = $data['password']; 
 
+////////////
+THIS CODE IS TEMPORARY SO I CAN SEE WHAT's GOING ON IN PHP BEHIND THE SCENES
+MAKE SURE YOU REMOVE IT ONCE IT WORKS
+FOR NOW, APPARENTLY USERNAME AND PASSWORD ARE NOT GETTING TO PHP FROM YOUR LOGING
+ONCE THE MESSAGE DISPLAYED BY THIS CODE SHOWS YOUR USERNAME AND PASSWORD, YOU CAN
+MOVE THIS FORWARD TO CHECK THE ENXT STEP OF PROCESS (EDIT WHERE SHOWN)
+EVETUALLY YOU WILL REMOVE IT
+////////////
+////////////
+    ob_start();
+    var_dump($data);
+    $postdump = ob_get_clean();
+    
+    // set up our response array
+    $response = array();
+    $response['status'] = 'error';
+    /// CHANGE NEXT LINE TO RETURN WHAT YOU WANT TO SEE FROM PHP
+    $response['message'] = $username . " : " . $password . " : " . $postdump;
+    header('Content-Type: application/json');
+    echo(json_encode($response));
+    exit;
+////////////
+////////////
+////////////
+
 
 //set up variables to handle errors
 //is complete will be false if we find any problems when checking the data
@@ -29,9 +54,9 @@ $errorMessage = "";
 //
 
 // check if account and password meets criteria
-if (!isset($username) || (strlen($username) < 4)){
+if (!isset($username) || (strlen($username) < 2)){
     $isComplete = false;
-    $errorMessage .= "Please enter a username with at least four characters. ";
+    $errorMessage .= "Please enter a username with at least two characters. ";
     
 } else {
     $title = makeStringSafe($db, $username);

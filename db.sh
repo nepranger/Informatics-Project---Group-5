@@ -1,5 +1,5 @@
 #!/bin/sh
-#
+
 # Shell script to access your database. Requires access to
 # mysql_db_info, assumed to be in your /webdev/user/$USER file.
 #USER=`nepranger`

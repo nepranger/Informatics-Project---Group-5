@@ -3,7 +3,7 @@
 
 // Server information.
 $Proto = "http://";
-$Host = $_SERVER['SERVER_NAME'];
+//$Host = $_SERVER['SERVER_NAME'];
 
 // where we put images
 $imagesDir = "images/";

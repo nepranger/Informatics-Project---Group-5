@@ -10,10 +10,10 @@ CREATE TABLE Account(
 );
 
 --Insert some data into the Account Table
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("nepranger", "hawkeyes", "Nathan Pranger", 0);
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("csadmin", "hawkeyes", "Juan Pablo Hourcade", 1);
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("segre", "hawkeyes", "Alberto Segre", 0);
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("bwright", "hawkeyes", "Bob Wright", 0);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("nepranger", "$2a$12$ZgjfaL8ZbsnO1NqhchZQLuYhk1pJa/Q0b3T9fJS5IrYKG/sa1tsUO", "Nathan Pranger", 0);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("csadmin", "$2a$12$ZgjfaL8ZbsnO1NqhchZQLuYhk1pJa/Q0b3T9fJS5IrYKG/sa1tsUO", "Juan Pablo Hourcade", 1);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("segre", "$2a$12$ZgjfaL8ZbsnO1NqhchZQLuYhk1pJa/Q0b3T9fJS5IrYKG/sa1tsUO", "Alberto Segre", 0);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("bwright", "$2a$12$ZgjfaL8ZbsnO1NqhchZQLuYhk1pJa/Q0b3T9fJS5IrYKG/sa1tsUO", "Bob Wright", 0);
 
 
 --Create the Student Table 
