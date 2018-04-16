@@ -1,45 +1,21 @@
 <?php
+// NOTE CHANGE THIS FILE LOGIN.PHP TO ESSENTIALLY THE SAME AS THE HOMEWORK BUT JUST LOOK AT THE QUERIES.
+//In order to check for different account types we have to write different queriers for each account type here in login.php
 
-
-//we need to include these two files in order to work with the datbase
+//we need to include these files in order to work with the database
 include_once('config.php');
 include_once('dbutils.php');
 
-// get a handle to the database
-$db = connectDB($DBHost, $DBUser, $DBPassword, $DBName);
+//get a handle to the database
+$db = connectDB($DbHost, $DBUser, $DBPassword, $DBName);
 
-// retrieve data from the angular controller
-// decode the json object
+//retrieve data from the angular controller
+//decode the json object
 $data = json_decode(file_get_contents('php://input'), true);
 
 //get each piece of data
-$username = $data['username'];
-$password = $data['password']; 
-
-////////////
-THIS CODE IS TEMPORARY SO I CAN SEE WHAT's GOING ON IN PHP BEHIND THE SCENES
-MAKE SURE YOU REMOVE IT ONCE IT WORKS
-FOR NOW, APPARENTLY USERNAME AND PASSWORD ARE NOT GETTING TO PHP FROM YOUR LOGING
-ONCE THE MESSAGE DISPLAYED BY THIS CODE SHOWS YOUR USERNAME AND PASSWORD, YOU CAN
-MOVE THIS FORWARD TO CHECK THE ENXT STEP OF PROCESS (EDIT WHERE SHOWN)
-EVETUALLY YOU WILL REMOVE IT
-////////////
-////////////
-    ob_start();
-    var_dump($data);
-    $postdump = ob_get_clean();
-    
-    // set up our response array
-    $response = array();
-    $response['status'] = 'error';
-    /// CHANGE NEXT LINE TO RETURN WHAT YOU WANT TO SEE FROM PHP
-    $response['message'] = $username . " : " . $password . " : " . $postdump;
-    header('Content-Type: application/json');
-    echo(json_encode($response));
-    exit;
-////////////
-////////////
-////////////
+$hawk_ID = $data['username'];
+$password = $data['password'];
 
 
 //set up variables to handle errors
@@ -53,62 +29,65 @@ $errorMessage = "";
 // Validation
 //
 
-// check if account and password meets criteria
-if (!isset($username) || (strlen($username) < 2)){
+//check if hawkid, hashedpass, and name meet criteria
+if (!isset($hawk_ID) || (strlen($hawk_ID) < 2)){
     $isComplete = false;
-    $errorMessage .= "Please enter a username with at least two characters. ";
+    $errorMessage .= "Please enter a HawkID with at least two characters.";
     
 } else {
-    $title = makeStringSafe($db, $username);
+    $title = makeStringSafe($db, $hawk_ID);
+    
 }
 
 
-if (!isset($password) || (strlen($password) < 6)){
+if (!isset($password) || (strlen($password)< 6)){
     $isComplete = false;
     $errorMessage .= "Please enter a password with at least six characters. ";
+    
     
 } else
 
 
-//check if we already have a username that matches the one the user entered
+//check if we already have a hawkId that matches the one entered.
 if($isComplete){
-    // set up a query to check if this username is already in the database
-    $query = "SELECT id, hashedpass FROM tables WHERE username ='$username'";
+    //set up a query to check if this username is in the database
+    $query = "SELECT hawk_ID, hashedpass FROM Account WHERE hawk_ID = '$hawk_ID'";
     
-    //we need to now run the queryable
+    //we need to now run the query
     $result = queryDB($query, $db);
     
-    //make sure the username is correct here
-    if (nTuples($result) == 0){
-        $errorMessage .= "The username $username, does not correspond to any account in the system. ";
+    //make sure the hawkID is correct here
+    if (nTuples($result) ==0){
+        $errorMessage .= "The HawkID $hawk_ID, does not correspond to any account in the system. ";
         $isComplete = false;
+        
     }
 }
 
 
-
 if ($isComplete){
-    // there is an account that corresponds to the email that the user entered
+    //there is an account that corresponds to the HawkID that the user entered
     //get the hashed password for that account
     $row = nextTuple($result);
     $hashedpass = $row['hashedpass'];
-    $id = $row['id'];
+    $hawk_ID = $row['hawk_ID'];
     
     //compare entered password to the password on the database
     if ($hashedpass != crypt($password, $hashedpass)){
         //if password is incorrect
         $errorMessage .= "The password you entered is incorrect. ";
         $isComplete = false;
+        
     }
-}    
+}
 if ($isComplete){
-    //password was entered correctly
+    //password was correctly entered
+    
+    //CHECK WHAT ACCOUNT TYPE/ROLE THEY ARE HERE -- AKA PUT THE QUERIES FOR THE OTHER ACCOUNT TYPES HERE!
     
     //start a session
-    //if the session variable username is set, then we assume that the user is logged in.
-    session_start();
-    $_SESSION['username'] = $username;
-    $_SESSION['accountid'] = $id;
+    //if the session variable hawkID is set, then we assume that the user is logged in.
+    $_SESSION['username'] = $hawk_ID;
     
     //send a response back
     $response = array();
@@ -116,7 +95,6 @@ if ($isComplete){
     $response['message'] = 'logged in';
     header('Content-Type: application/json');
     echo(json_encode($response));
-
 } else {
     //there's been an error. we need to report it to the angular controller.
     ob_start();
@@ -130,7 +108,10 @@ if ($isComplete){
     header('Content-Type: application/json');
     echo(json_encode($response));
     
+
 }
+
+
 
 
 

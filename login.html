@@ -47,9 +47,9 @@
     <!-- soccer.module.js is where we define the angular app called 'soccer'. We use the name of the app in the html element at the top of the file -->
     <script src="project.module.js"></script>
     <!-- data.soccer.controller.js is where we are getting the data from. It defines a controller under the 'soccer' app called 'dataControl', and data is under $scope.data -->
-    <script src="data.movie.controller.js"></script>
+    <script src="data.controller.js"></script>
     <!-- soccer.filter.js enables us to display html code -->
-    <script src="safe.filter.js"></script>
+    <!--<script src="safe.filter.js"></script> -->
 
 </head>
 
@@ -62,7 +62,7 @@
 
     
 <!-- header -->
-        <div ng-include ng-init="menuHighlight = 3;" src="'header.html'"></div>
+        <!--<div ng-include ng-init="menuHighlight = 3;" src="'header.html'"></div>-->
 
 <div class="row">
     <div class="col-xs-12">
@@ -79,19 +79,19 @@
         
             <!-- username for account -->
             <div class="form-group" ng-class="{ 'text-danger': accountForm.username.$invalid && accountForm.username.$touched, 'text-success': !accountForm.username.$invalid && accountForm.username.$touched }">
-                <label class="form-control-label" for="username">Username (at least 2 characters long): </label>
+                <label class="form-control-label" for="username">HawkID (at least 2 characters long): </label>
                 <input type="text" class="form-control" ng-class="{ 'is-invalid': accountForm.username.$invalid && accountForm.username.$touched, 'is-valid': !accountForm.username.$invalid && accountForm.username.$touched }" name="username" ng-model="account.username" ng-minlength="2" id="username" required/>
-                <div ng-show="accountForm.username.$invalid && accountForm.username.$touched" >The username must be at least two characters long</div>
+                <div ng-show="accountForm.username.$invalid && accountForm.username.$touched" >The HawkID must be at least two characters long</div>
             </div>
             
             <!-- password for account -->
             <div class="form-group" ng-class="{ 'text-danger': accountForm.password.$invalid && accountForm.password.$touched, 'text-success': !accountForm.password.$invalid && accountForm.password.$touched }">
-                <label class="form-control-label" for="password">Password (at least 6 characters long; may not include anything related to hawkeyes): </label>
+                <label class="form-control-label" for="password">Password (at least 6 characters long): </label>
                 <input type="password" class="form-control" ng-class="{ 'is-invalid': accountForm.password.$invalid && accountForm.password.$touched, 'is-valid': !accountForm.password.$invalid && accountForm.password.$touched }" name="password" ng-model="account.password" ng-minlength="6" id="password" required/>
-                <div ng-show="accountForm.password.$invalid && accountForm.password.$touched" >The password must be at least six characters long</div>
+                <div ng-show="accountForm.password.$invalid && accountForm.password.$touched" >The Password must be at least six characters long</div>
             </div>
         
-            <button class="btn btn-default" ng-click="login(tables)" ng-disabled="accountForm.$invalid">Log in</button>
+            <button class="btn btn-default" ng-click="login(account)" ng-disabled="accountForm.$invalid">Log in</button>
         </form>
     </div>
 </div>
