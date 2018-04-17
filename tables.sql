@@ -2,10 +2,10 @@
 DROP TABLE IF EXISTS Tutor_Availability;
 DROP TABLE IF EXISTS Tutor_Session;
 DROP TABLE IF EXISTS Problem_Set;
-DROP TABLE IF EXISTS Course;
 DROP TABLE IF EXISTS Faculty;
 DROP TABLE IF EXISTS Tutor;
 DROP TABLE IF EXISTS Student;
+DROP TABLE IF EXISTS Course;
 DROP TABLE IF EXISTS Account;
 
 CREATE TABLE Account(
@@ -17,10 +17,21 @@ CREATE TABLE Account(
 );
 
 --Insert some data into the Account Table
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("nepranger", "hawkeyes", "Nathan Pranger", 0);
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("csadmin", "hawkeyes", "Juan Pablo Hourcade", 1);
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("segre", "hawkeyes", "Alberto Segre", 0);
-INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("bwright", "hawkeyes", "Bob Wright", 0);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("nepranger", "$2a$12$HId5u4IAGIpk9BgcxuGhz.EPkIc6jk.wqc/TeYWjf0NLU6W8byZwm", "Nathan Pranger", 0);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("csadmin", "$2a$12$HId5u4IAGIpk9BgcxuGhz.EPkIc6jk.wqc/TeYWjf0NLU6W8byZwm", "Juan Pablo Hourcade", 1);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("segre", "$2a$12$HId5u4IAGIpk9BgcxuGhz.EPkIc6jk.wqc/TeYWjf0NLU6W8byZwm", "Alberto Segre", 0);
+INSERT INTO Account (hawk_ID, hashedpass, name, administrator) VALUES ("bwright", "$2a$12$HId5u4IAGIpk9BgcxuGhz.EPkIc6jk.wqc/TeYWjf0NLU6W8byZwm", "Bob Wright", 0);
+
+CREATE TABLE Course(
+    course_ID VARCHAR(120) NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    course_number VARCHAR(120) NOT NULL,
+    course_section VARCHAR(255) NOT NULL,
+    PRIMARY KEY(course_ID)
+);
+
+--Insert some data into the Course Table
+INSERT INTO Course (course_ID, course_name, course_number, course_section) VALUES ("CS:2200", "Operating Systems", "2200", "001" );
 
 
 --Create the Student Table 
@@ -64,16 +75,9 @@ INSERT INTO Faculty (hawk_ID, course_ID) VALUES ("segre", "CS:2200");
 
 --Create the Course Table
 
-CREATE TABLE Course(
-    course_ID VARCHAR(120) NOT NULL,
-    course_name VARCHAR(255) NOT NULL,
-    course_number VARCHAR(120) NOT NULL,
-    course_section VARCHAR(255) NOT NULL,
-    PRIMARY KEY(course_ID)
-);
 
---Insert some data into the Course Table
-INSERT INTO Course (course_ID, course_name, course_number, course_section) VALUES ("CS:2200", "Operating Systems", "2200", "001" );
+
+
 
 --Create the Problem Set Table
 

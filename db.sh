@@ -2,11 +2,11 @@
 #
 # Shell script to access your database. Requires access to
 # mysql_db_info, assumed to be in your /webdev/user/$USER file.
-#USER=`nepranger`
-#DBNAME=`db_nepranger`
-#DBPASSWD=`tQgYpgzasPYP`
-#DBHOST=`dbdev.cs.uiowa.edu`
-#DBPORT=`3306`
+USER=`whoami`
+DBNAME=`grep "Database name:" /webdev/user/$USER/mysql_db_info | cut -f 3 -d" "`
+DBPASSWD=`grep "DB Password:" /webdev/user/$USER/mysql_db_info | cut -f 3 -d" "`
+DBHOST=`grep "DB Host:" /webdev/user/$USER/mysql_db_info | cut -f 3 -d" "`
+DBPORT=`grep "DB Port:" /webdev/user/$USER/mysql_db_info | cut -f 3 -d" "`
 
 # Access MySQL
-mysql --user='nepranger' --password='tQgYpgzasPYP' --host='dbdev.cs.uiowa.edu' --port='3306' 'db_nepranger'
+mysql --user="$USER" --password="$DBPASSWD" --host="$DBHOST" --port="$DBPORT" "$DBNAME"
