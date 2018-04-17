@@ -17,7 +17,6 @@ $data = json_decode(file_get_contents('php://input'), true);
 $hawk_ID = $data['username'];
 $password = $data['password'];
 
-
 //set up variables to handle errors
 //is complete will be false if we find any problems when checking the data
 $isComplete = true;
@@ -63,7 +62,6 @@ if($isComplete){
         
     }
 }
-
 
 if ($isComplete){
     //there is an account that corresponds to the HawkID that the user entered
