@@ -1,9 +1,9 @@
-<!doctype html>
+ <!doctype html>
  
 <!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->   
 <html lang='en' ng-app="project">
 <head>
-    <title>Administrator Portal</title>
+    <title>Tutor Portal</title>
     
     <!-- These are the links to the bootstrap code -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -20,9 +20,6 @@
    <!--movie. controller.js-allows us to display HTML code-->
    <script src="project.filter.js"></script>
 </head>
-
-<body>
- 
  <!-- Main Content -->
  <div class="container" ng-controller="dataControl">
   
@@ -30,7 +27,8 @@
   <div class="row align-items-center justify-content-center">
    <div class="pt-5 col-xs-12">
     <div class="page-header">
-     <h1>Administrator Home</h1>
+     <h1>Tutor Home</h1>
+    
     </div>
    </div>
   </div>
@@ -40,11 +38,9 @@
     <div class="container">
      <!-- Admin Menu -->
      <ul class="nav nav-pills">
-      <li class="nav-item"><a class="nav-link active" href="AdminHome.html">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="managestudent.html">Manage Students</a></li>
-      <li class="nav-item"><a class="nav-link" href="managetutor.html">Manage Tutors</a></li>
-      <li class="nav-item"><a class="nav-link" href="managefaculty.html">Manage Faculty</a></li>
-      <li class="nav-item"><a class="nav-link" href="managecourses.html">Manage Courses</a></li>
+      <li class="nav-item"><a class="nav-link active " href="tutorHome.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link  " href="#">Manage Tutoring Session</a></li>
+      <li class="nav-item"><a class="nav-link" href="#l"> Practice Problems</a></li>
       <li class="nav-item" ng-show="isloggedin"><a class="nav-link" href="home.html" ng-click="logout()">Logout</a>
 
 
@@ -53,11 +49,14 @@
    </div>
   </div>
   
-  
- 
- </div>
- 
- 
+   <p> Add landing page and tutor hours to home</p>
+ <!-- we are defining the angular controller that we will use in this chunk of html defined by the div as 'dataControl' from data.soccer.controller.js -->
+    <div class="container" ng-controller="dataControl">
+        
+        <!-- header -->
+        <div ng-include ng-init="menuHighlight = 1;" src="'header.html'"></div>
+        
+        
+        
 </body>
-
-
+</html>
