@@ -134,6 +134,9 @@ if ($isComplete){
     $response['status'] = 'success';
     $response['message'] = 'logged in';
     $response['isstudent'] = $isstudent;
+    $response['istutor'] = $istutor;
+    $response['isfaculty'] = $isfaculty;
+    $response['isadmin'] = $isadmin;
     header('Content-Type: application/json');
     echo(json_encode($response));
 } else {
