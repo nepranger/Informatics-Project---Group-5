@@ -52,7 +52,16 @@
                         alert('error:' + response.data.message);
                     } else {
                         //successful
-                        $window.location.href = "home.html";
+                        if (response.data.isstudent) {
+                            $window.location.href = "StudentHome.html";
+                        } else if (response.data.istutor) {
+                            $window.location.href = "TutorHome.html";
+                        } else if (response.data.isfaculty) {
+                            $window.location.href = "FacultyHome.html";
+                        } else if (response.data.isadmin) {
+                            $window.location.href = "AdminHome.html";
+                        }
+                        //$window.location.href = "home.html";
                     }
                 } else {
                    alert('unexpected error'); 
