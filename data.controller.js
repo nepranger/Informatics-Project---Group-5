@@ -53,11 +53,11 @@
                     } else {
                         //successful
                         if (response.data.isstudent) {
-                            $window.location.href = "studentHome.html";
+                            $window.location.href = "StudentHome.html";
                         } else if (response.data.istutor) {
-                            $window.location.href = "tutorHome.html";
+                            $window.location.href = "TutorHome.html";
                         } else if (response.data.isfaculty) {
-                            $window.location.href = "facultyHome.html";
+                            $window.location.href = "FacultyHome.html";
                         } else if (response.data.isadmin) {
                             $window.location.href = "AdminHome.html";
                         }
@@ -82,7 +82,7 @@
                         alert('error:' + response.data.message);
                     } else {
                         //successful
-                        $window.location.href = "home.html";
+                        $window.location.href = "login.html";
                     }
                 } else {
                    alert('unexpected error'); 
@@ -115,25 +115,7 @@
         
        };
        
-       // function to send new account information to web api to add it to the database-- check admin html
-        $scope.createNewAccount = function(accountDetails) {
-          var accountupload = angular.copy(accountDetails);
-          
-          $http.post("newAccount.php", accountupload)
-            .then(function (response) {
-               if (response.status == 200) {
-                    if (response.data.status == 'error') {
-                        alert('error: ' + response.data.message);
-                    } else {
-                        // successful
-                        // send user back to home page
-                        $window.location.href = "AdminHome.html";
-                    }
-               } else {
-                    alert('unexpected error');
-               }
-            });
-        };
+       
        
        
        
