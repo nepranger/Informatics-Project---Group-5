@@ -67,12 +67,13 @@ CREATE TABLE Student(
     hawk_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
     budget VARCHAR(255),
-    PRIMARY KEY(hawk_ID),
+    PRIMARY KEY(hawk_ID, course_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
 --Insert some data into the Student Table
 INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nepranger", "CS:2620", "4");
+INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nbueno", "CS:1110", "4");
 
 --Create the Tutor Table
 
@@ -80,7 +81,7 @@ CREATE TABLE Tutor(
     hawk_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
     hours_per_week VARCHAR(120) NOT NULL,
-    PRIMARY KEY(hawk_ID),
+    PRIMARY KEY(hawk_ID, course_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
@@ -93,7 +94,7 @@ INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("bwright", "CS:26
 CREATE TABLE Faculty(
     hawk_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
-    PRIMARY KEY(hawk_ID),
+    PRIMARY KEY(hawk_ID, course_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
@@ -106,7 +107,7 @@ INSERT INTO Faculty (hawk_ID, course_ID) VALUES ("segre", "CS:1110");
 CREATE TABLE Problem_Set(
     problem_set_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
-    PRIMARY KEY(problem_set_ID),
+    PRIMARY KEY(problem_set_ID, course_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
@@ -121,7 +122,7 @@ CREATE TABLE Tutor_Session(
     session_date VARCHAR(120) NOT NULL,
     session_time VARCHAR(120) NOT NULL,
     rating VARCHAR(120) NOT NULL,
-    PRIMARY KEY(session_ID),
+    PRIMARY KEY(session_ID, hawk_ID, course_ID),
     FOREIGN KEY (hawk_ID) REFERENCES Account(hawk_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
@@ -134,7 +135,7 @@ CREATE TABLE Tutor_Availability(
     course_ID VARCHAR(120) NOT NULL,
     available_date VARCHAR(120),
     available_time VARCHAR(120),
-    PRIMARY KEY(slot_ID),
+    PRIMARY KEY(slot_ID, hawk_ID, course_ID),
     FOREIGN KEY (hawk_ID) REFERENCES Account(hawk_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
