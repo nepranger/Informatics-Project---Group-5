@@ -50,25 +50,32 @@ if (!isset($password) || (strlen($password)< 6)){
 
 //check if we already have a hawkId that matches the one entered.
 if($isComplete){
+    
     //set up a query to check if this username is in the database
-    $query = "SELECT hawk_ID, hashedpass FROM Account WHERE hawk_ID = '$hawk_ID'";
+    $query = "SELECT hawk_ID, hashedpass, administrator FROM Account WHERE hawk_ID = '$hawk_ID'";
     
     //we need to now run the query
     $result = queryDB($query, $db);
     
     //make sure the hawkID is correct here
-    if (nTuples($result) ==0){
+    if (nTuples($result) == 0){
+        
         $errorMessage .= "The HawkID $hawk_ID, does not correspond to any account in the system. ";
         $isComplete = false;
         
+        
+    } else {
+        $row = nextTuple($result);
+        $is_admin = $row['administrator'];
     }
+    
 }
 
 
 if ($isComplete){
     //there is an account that corresponds to the HawkID that the user entered
     //get the hashed password for that account
-    $row = nextTuple($result);
+    //$row = nextTuple($result);
     $hashedpass = $row['hashedpass'];
     $hawk_ID = $row['hawk_ID'];
     
@@ -80,65 +87,56 @@ if ($isComplete){
         
     }
 }
+
 if ($isComplete){
     //password was correctly entered
     
     //CHECK WHAT ACCOUNT TYPE/ROLE THEY ARE HERE -- AKA PUT THE QUERIES FOR THE OTHER ACCOUNT TYPES HERE!
     
-    $query2 = "SELECT hawk_ID, course_ID, budget FROM Student WHERE hawk_ID = '$hawk_ID'";
-    $query3 = "SELECT hawk_ID, course_ID, hours_per_week FROM Tutor WHERE hawk_ID = '$hawk_ID'";
-    $query4 = "SELECT hawk_ID, course_ID FROM Faculty WHERE hawk_ID = '$hawk_ID'";
-    $query5 = "SELECT hawk_ID, hashedpass, administrator FROM Account WHERE administrator = '1'";
-    
-    // check if student
-    $result2 = queryDB($query2, $db);
-    if (nTuples($result2) > 0){
-        $isstudent = true;
-    } else {
-        $isstudent = false;
+    $query = "SELECT hawk_ID, course_ID, budget FROM Student WHERE hawk_ID = '$hawk_ID'";
+    $result = queryDB($query, $db);
+    if (nTuples($result) > 0){
+        $account_type = 'student';
     }
-    
-    //check if Tutor
-    $result3 = queryDB($query3, $db);
-    if (nTuples($result3) > 0){
-        $istutor = true;
-    } else {
-        $istutor = false;
+    else {
+        $query = "SELECT hawk_ID, course_ID, hours_per_week FROM Tutor WHERE hawk_ID = '$hawk_ID'";
+        $result = queryDB($query, $db);
+        if (nTuples($result) > 0){
+            $account_type = 'tutor';
+        }
+        else {
+            $query = "SELECT hawk_ID, course_ID, FROM Faculty WHERE hawk_ID = '$hawk_ID'";
+            $result = queryDB($query, $db);
+            if (nTuple($result) > 0) {
+                    $account_type = 'faculty';
+            } else {
+                // THrow an error; unrecognize account ytpe someone is in accounts but not in any oahter table
+                $isComplete = false;
+                $errorMessage .= "Unrecognized Account Type.";
+            }
+        }
     }
+ }   
     
-    //check if Faculty
-    $result4 = queryDB($query4, $db);
-    if (nTuples($result4) > 0){
-        $isfaculty = true;
-    } else {
-        $isfaculty = false;
-    }
-    
-    //check if admin
-    $result5 = queryDB($query5, $db);
-    if (nTuples($result5) > 0){
-        $isadmin = true;
-    } else {
-        $isadmin = false;
-    }
-    
-    
-    
+   
+if ($isComplete) {
     //start a session
     //if the session variable hawkID is set, then we assume that the user is logged in.
-    //session_start();
+    
+    session_start();
     $_SESSION['username'] = $hawk_ID;
+    $_SESSION['accountType'] = $account_type;
+    $_SESSION['isAdmin'] = $is_admin;
     
     //send a response back
     $response = array();
     $response['status'] = 'success';
     $response['message'] = 'logged in';
-    $response['isstudent'] = $isstudent;
-    $response['istutor'] = $istutor;
-    $response['isfaculty'] = $isfaculty;
-    $response['isadmin'] = $isadmin;
+    $response['accountType'] = $account_type;
+    $response['isAdmin'] = $isAdmin;
     header('Content-Type: application/json');
     echo(json_encode($response));
+    
 } else {
     //there's been an error. we need to report it to the angular controller.
     ob_start();
