@@ -88,7 +88,7 @@ if ($isComplete){
     }
 }
 
-if ($isComplete){
+if ($isComplete && !$is_admin){
     //password was correctly entered
     
     //CHECK WHAT ACCOUNT TYPE/ROLE THEY ARE HERE -- AKA PUT THE QUERIES FOR THE OTHER ACCOUNT TYPES HERE!
@@ -103,17 +103,19 @@ if ($isComplete){
         $result = queryDB($query, $db);
         if (nTuples($result) > 0){
             $account_type = 'tutor';
-        }
+        } 
         else {
-            $query = "SELECT hawk_ID, course_ID, FROM Faculty WHERE hawk_ID = '$hawk_ID'";
+            $query = "SELECT hawk_ID, course_ID FROM Faculty WHERE hawk_ID = '$hawk_ID'";
             $result = queryDB($query, $db);
-            if (nTuple($result) > 0) {
+            
+            if (nTuples($result) > 0) {
                     $account_type = 'faculty';
             } else {
                 // THrow an error; unrecognize account ytpe someone is in accounts but not in any oahter table
                 $isComplete = false;
                 $errorMessage .= "Unrecognized Account Type.";
             }
+           
         }
     }
  }   
@@ -126,14 +128,14 @@ if ($isComplete) {
     session_start();
     $_SESSION['username'] = $hawk_ID;
     $_SESSION['accountType'] = $account_type;
-    $_SESSION['isAdmin'] = $is_admin;
+    $_SESSION['isadmin'] = $is_admin;
     
     //send a response back
     $response = array();
     $response['status'] = 'success';
     $response['message'] = 'logged in';
     $response['accountType'] = $account_type;
-    $response['isAdmin'] = $isAdmin;
+    $response['isadmin'] = $is_admin;
     header('Content-Type: application/json');
     echo(json_encode($response));
     
