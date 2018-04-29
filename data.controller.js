@@ -18,6 +18,8 @@
             getAndSetAccounts();
             getAndSetStudents();
             getAndSetCourses();
+            getAndSetTutors();
+            getAndSetFaculty();
         }
 
         function getAndSetAccounts() {
@@ -35,12 +37,27 @@
                     console.log($scope.studentData);
                 });
         }
+        function getAndSetTutors() {
+            $http.get('getTutor.php')
+                .then(function (response) {
+                    $scope.tutorData = response.data.value;
+                    console.log($scope.tutorData);
+                });
+        }
+
 
         function getAndSetCourses() {
             $http.get('getCourse.php')
                 .then(function (response) {
                     $scope.courseData = response.data.value;
                     console.log($scope.courseData);
+                });
+        }
+        function getAndSetFaculty() {
+            $http.get('getFaculty.php')
+                .then(function (response) {
+                    $scope.facultyData = response.data.value;
+                    console.log($scope.facultyData);
                 });
         }
         /*

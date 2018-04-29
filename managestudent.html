@@ -96,7 +96,21 @@
         
         </div> <!-- close row -->
         
-        
+          <table style="width:100%">
+            <tr>
+                <td>Student Name</td>
+                <td>Budget </td>
+                
+            </tr>
+            <tr ng-repeat="student in studentData.students">
+                <td>{{student.hawk_ID}}</td>
+                <td>{{student.budget}}</td>
+                
+            </tr>
+        </table>
+    </div>
+</body>
+
         
     </div>
 </body>
