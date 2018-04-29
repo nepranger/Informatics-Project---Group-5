@@ -139,10 +139,8 @@ INSERT INTO Tutor_Session (hawk_ID, course_ID, cancelled_By_Tutor, cancelled_By_
 CREATE TABLE Tutor_Availability(
     slot_ID INT NOT NULL AUTO_INCREMENT, 
     hawk_ID VARCHAR(120) NOT NULL,
-    course_ID VARCHAR(120) NOT NULL,
     available_date VARCHAR(120),
     available_time VARCHAR(120),
-    PRIMARY KEY(slot_ID, hawk_ID, course_ID),
-    FOREIGN KEY (hawk_ID) REFERENCES Account(hawk_ID),
-    FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
+    PRIMARY KEY(slot_ID, hawk_ID),
+    FOREIGN KEY (hawk_ID) REFERENCES Tutor(hawk_ID)
 );
