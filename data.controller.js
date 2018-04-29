@@ -60,6 +60,7 @@
                     console.log($scope.facultyData);
                 });
         }
+         
         /*
          * Set the edit mode of a particular player
          * on is true if we are setting edit mode to be on, false otherwise
@@ -156,6 +157,18 @@
                     }
                 });
         }
+        
+        $scope.getAndSetSession = function(newSession) {
+            console.log('Set session', newSession);
+            newSession.month = newSession.available_date.getMonth()+1; // Thinks Jan is 0th month
+            newSession.day = newSession.available_date.getDay();
+            newSession.year = newSession.available_date.getYear();
+            
+            $http.post('addSession.php')
+                .then(function (response) {
+          
+                });
+        };
 
         //function getLoggedInUser(username) {
           //  console.log(username);

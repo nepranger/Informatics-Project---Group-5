@@ -39,7 +39,29 @@
      </ul>
  </div>
 
-
+ <form  name="newSessionForm" novalidate>
+                
+                <!-- date of session -->
+                <div class="form-group" ng-class="{ 'text-danger': newSessionForm.available_date.$invalid && newSessionForm.available_date.$touched, 'text-success': !newSessionForm.available_date.$invalid && newSessionForm.available_date.$touched }">
+                    <label class="form-control-label" for="slot">available date: </label>
+                    <input type="date" class="form-control" ng-class="{ 'is-invalid': newSessionForm.available_date.$invalid && newSessionForm.available_date.$touched, 'is-valid': !newSessionForm.slot.$invalid && newSessionForm.available_date.$touched }" name="available_date" ng-model="newSession.available_date" ng-minlength="2" id="available_date " required/>
+                    <div ng-show="newSessionForm.available_date.$invalid && newSessionForm.available_date.$touched" >PLease input valid date</div>
+                </div>
+                
+                <!-- time of session -->
+                <!-- ng-class sets up the style for this element. You'll find a format of 'style': condition, 'style2': condition2 -->
+                <!-- notice in ng-class we are using the name of the form, and the name of the input element in the codition statements -->
+                <div class="form-group" ng-class="{ 'text-danger': newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched, 'text-success': !newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched}">
+                    <label>Time: </label>
+                    <input type="Time" class="form-control" ng-class="{ 'is-invalid': newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched, 'is-valid': !newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched}" name="available_time" ng-model="newSession.available_time" ng-minlength="2" />
+                    <p ng-show="newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched" >Pleaase enter a valid time</p>
+                </div>
+                
+                            
+                
+                <!-- newSession is a function in the controller. movie refers to the word we used under ng-model in the input fields -->
+                <button class="btn btn-default" ng-click="getAndSetSession(newSession)" ng-disabled="newSessionForm.$invalid">Add Session</button>
+            </form>
   
   
  
