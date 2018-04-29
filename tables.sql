@@ -68,11 +68,13 @@ CREATE TABLE Student(
     course_ID VARCHAR(120) NOT NULL,
     budget VARCHAR(255),
     PRIMARY KEY(hawk_ID, course_ID),
+    FOREIGN KEY(hawk_ID) REFERENCES Account(hawk_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
 --Insert some data into the Student Table
 INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nepranger", "CS:2620", "4");
+INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nepranger", "CS:3980", "4");
 INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nbueno", "CS:1110", "4");
 
 --Create the Tutor Table
@@ -82,6 +84,7 @@ CREATE TABLE Tutor(
     course_ID VARCHAR(120) NOT NULL,
     hours_per_week VARCHAR(120) NOT NULL,
     PRIMARY KEY(hawk_ID, course_ID),
+    FOREIGN KEY(hawk_ID) REFERENCES Account(hawk_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
@@ -95,6 +98,7 @@ CREATE TABLE Faculty(
     hawk_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
     PRIMARY KEY(hawk_ID, course_ID),
+    FOREIGN KEY(hawk_ID) REFERENCES Account(hawk_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
@@ -107,6 +111,7 @@ INSERT INTO Faculty (hawk_ID, course_ID) VALUES ("segre", "CS:1110");
 CREATE TABLE Problem_Set(
     problem_set_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
+    text_box VARCHAR(1000) NOT NULL, 
     PRIMARY KEY(problem_set_ID, course_ID),
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
@@ -114,7 +119,7 @@ CREATE TABLE Problem_Set(
 --Create the Tutor Session Table
 
 CREATE TABLE Tutor_Session(
-    session_ID VARCHAR(120) NOT NULL,
+    session_ID INT NOT NULL AUTO_INCREMENT, 
     hawk_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
     cancelled_By_Tutor BIT DEFAULT 0,
@@ -127,10 +132,12 @@ CREATE TABLE Tutor_Session(
     FOREIGN KEY (course_ID) REFERENCES Course(course_ID)
 );
 
+INSERT INTO Tutor_Session (hawk_ID, course_ID, cancelled_By_Tutor, cancelled_By_Student, session_date, session_time, rating) VALUES ("bwright","CS:2620", 0, 0, "3/1/2018", "1:30", "4");
+
 --Create the Tutor Availability Table
 
 CREATE TABLE Tutor_Availability(
-    slot_ID VARCHAR(120) NOT NULL,
+    slot_ID INT NOT NULL AUTO_INCREMENT, 
     hawk_ID VARCHAR(120) NOT NULL,
     course_ID VARCHAR(120) NOT NULL,
     available_date VARCHAR(120),
