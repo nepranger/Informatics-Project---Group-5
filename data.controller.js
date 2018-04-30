@@ -169,6 +169,49 @@
           
                 });
         };
+        
+        // function to delete an accoubt. it receives the account name hawk_id and call a php web api to complete deletion from the database
+        $scope.deleteUser = function(hawk_ID) {
+            if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {
+          
+                $http.post("deleteUser.php", {"hawk_ID" : hawk_ID})
+                  .then(function (response) {
+                     if (response.status == 200) {
+                          if (response.data.status == 'error') {
+                              alert('error: ' + response.data.message);
+                          } else {
+                              // successful
+                              // send user back to home page
+                              $window.location.href = "AdminHome.html";
+                          }
+                     } else {
+                          alert('unexpected error');
+                     }
+                  }
+                );
+            }
+        };
+        
+        // function to edit user data and send it to web api to edit the user in the database
+        $scope.editUser = function(userDetails) {
+          var movieupload = angular.copy(userDetails);
+          
+          $http.post("editUser.php", movieupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "AdminHome.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+        };        
+
 
         //function getLoggedInUser(username) {
           //  console.log(username);

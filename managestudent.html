@@ -105,7 +105,11 @@
             <tr ng-repeat="student in studentData.students">
                 <td>{{student.hawk_ID}}</td>
                 <td>{{student.budget}}</td>
-                
+                <td><button class="btn btn-primary" ng-click="deleteUser(Student.hawk_ID)">Delete</button></td>
+                <td><button class="btn btn-primary" ng-click="editUser(true, user)">Edit</button></td>
+
+
+ 
             </tr>
         </table>
     </div>
