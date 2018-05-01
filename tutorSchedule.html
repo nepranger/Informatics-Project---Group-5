@@ -1,0 +1,79 @@
+<!doctype html>
+ 
+<!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->   
+<html lang='en' ng-app="project">
+<head>
+    <title>Tutor Portal</title>
+    
+    <!-- These are the links to the bootstrap code -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+   <!-- link to angular -->
+   <script src='angular.min.js'></script>
+ 
+   <!-- angular code -->
+   <script src="project.module.js"></script>
+   <script src="data.controller.js"></script>
+   <!--movie. controller.js-allows us to display HTML code-->
+   <script src="project.filter.js"></script>
+</head>
+
+<body>
+ 
+ <!-- Main Content -->
+<div class="container" ng-controller="dataControl">
+  
+ <h1 class="text-center">Tutor Schedule</h1>
+ <div class="nav-center">
+      <!-- Student Menu -->
+     <ul class="nav nav-pills nav-justified">
+      <li class="nav-item"><a class="nav-link" href="TutorHome.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link  active" href="#">Your Schedule</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Practice Problems</a></li>
+      <li class="nav-item"><a class="nav-link" href="login.html" ng-click="logout()">Logout</a></li>
+
+
+     </ul>
+ </div>
+ 
+ <div class="row">
+    <div class="col-7">
+        <br>
+        <br>             
+        <h1>Scheduled Sessions</h1>
+        <br>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="scheduled in scheduledSessionData.sessions">
+                    <div ng-if="scheduled.cancelled_By_Student == 0 && scheduled.cancelled_By_Tutor == 0">
+                        <span class="float-left">{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>
+                        <button class="btn btn-danger float-right" ng-click="cancelSession(scheduled.session_ID, scheduled.slot_ID)">Cancel session</button>
+                    </div>
+                    <div ng-if="scheduled.cancelled_By_Student == 1 || scheduled.cancelled_By_Tutor == 1">
+                        <span class="float-left"><strong class="text-danger"> !!Cancelled!! </strong>{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>                
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <br>
+        <h1>Upcoming Available Sessions</h1>
+        <br>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="session in availableSessionData.sessions">
+                    <span class="float-left">{{ session.available_date | date:'MM/dd/yyyy @ h:mma' }}</span>
+                    <button class="btn btn-danger float-right" ng-click="deleteAvailableSession(session.slot_ID)">Delete session</button>
+                </li>
+            </ul>
+        
+        </div>
+            
+         
+        </div>
+ </body>

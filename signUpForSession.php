@@ -10,12 +10,8 @@ $db = connectDB($DBHost, $DBUser, $DBPassword, $DBName);
 
 // get data from the angular controller
 // decode the json object
-$data = json_decode(file_get_contents('php://input'), true);
+$slot_ID = json_decode(file_get_contents('php://input'), true);
 
-
-// get each piece of data
-
-$available_date = $data['available_date'];
 
 // set up variables to handle errors
 // is complete will be false if we find any problems when checking on the data
@@ -28,29 +24,52 @@ $errorMessage = "error";
 // Validation
 //
 
-// check if session meets criteria
-if (!isset($available_date)) {
+// check if id is present
+if (!isset($slot_ID)) {
     $isComplete = false;
-    $errorMessage .= "Please enter a date";
+    $errorMessage .= "Must include slot ID";
 } else {
-    $available_date = makeStringSafe($db, $available_date);
+    $slot_ID = makeStringSafe($db, $slot_ID);
 }
 
 session_start();
-$hawk_ID = $_SESSION['username'];
+$student_hawk_ID = $_SESSION['username'];
 $account_type = $_SESSION['accountType'];
 
-// Be sure the user is a tutor
-if (!isset($account_type) || $account_type != 'tutor') {
+// check if the user is a student
+if (!isset($account_type) || $account_type != 'student') {
     $isComplete = false;
-    $errorMessage .= "You must be a tutor to schedule a session.";
+    $errorMessage .= "You must be a student to sign up for a session.";
 }
 
-// if we got this far and $isComplete is true it means we should add the availble session
+// get Tutor_Available info to fill in Tutor_session info
 if ($isComplete) {
-    
+    $query = "SELECT * FROM Tutor_Availability JOIN Tutor ON Tutor.hawk_ID=Tutor_Availability.hawk_ID WHERE slot_ID='$slot_ID';";
+
+    //run the query to get info on session
+    $result = queryDB($query, $db);
+    $availSession = nextTuple($result);
+
+    //take the attributes we need from the result
+    $tutor_hawk_ID = $availSession['hawk_ID'];
+    $session_date = $availSession['available_date'];
+    $course_ID = $availSession['course_ID'];    
+
+    //make sure session hasn't been scheduled
+    if ($availSession['scheduled']) {
+        $isComplete = false;
+        $errorMessage .= "This session is already taken.";    
+    }
+}
+
+// if we got this far and $isComplete is true it means we should add the scheduled session
+if ($isComplete) {
+    // Set available session to scheduled
+    $updateQuery = "UPDATE Tutor_Availability SET scheduled=1 WHERE slot_ID='$slot_ID';";
+    queryDB($updateQuery, $db);    
+
     // we will set up the insert statement to add this new record to the database
-    $insertquery = "INSERT INTO Tutor_Availability(hawk_ID, available_date) VALUES ('$hawk_ID', '$available_date')";
+    $insertquery = "INSERT INTO Tutor_Session(tutor_hawk_ID, student_hawk_ID, course_ID, session_date, slot_ID) VALUES ('$tutor_hawk_ID', '$student_hawk_ID', '$course_ID', '$session_date', '$slot_ID')";
 
     // run the insert statement
     queryDB($insertquery, $db);
@@ -69,7 +88,7 @@ if ($isComplete) {
     
     // one of the things we want to send back is the data that his php file received
     ob_start();
-    var_dump($data);
+    var_dump($slot_ID);
     $postdump = ob_get_clean();
     
     // set up our response array

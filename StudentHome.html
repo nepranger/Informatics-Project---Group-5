@@ -40,8 +40,42 @@
      </ul>
  </div>
 
+<div class="container">
+    <br>
+    <h1>Scheduled Sessions</h1>
+    <br>
+    <div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="scheduled in scheduledSessionData.sessions">
+            <div ng-if="scheduled.cancelled_By_Student == 0 && scheduled.cancelled_By_Tutor == 0">
+                <span class="float-left">{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>
+                <button class="btn btn-danger float-right" ng-click="cancelSession(scheduled.session_ID, scheduled.slot_ID)">Cancel session</button>
+            </div>
+            <div ng-if="scheduled.cancelled_By_Student == 1 || scheduled.cancelled_By_Tutor == 1">
+                <span class="float-left"><strong class="text-danger">!!Cancelled!! </strong>{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>                
+            </div>
+        </li>
+    </ul>
 
-  
+</div>
+
+</div>
+
+<hr>
+
+<div class="container">
+    <br>
+    <h1>Upcoming Available Sessions</h1>
+    <br>
+    <div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="session in availableSessionData.sessions">
+            <span class="float-left">{{ session.available_date | date:'MM/dd/yyyy @ h:mma' }} with {{ session.name }}</span>
+            <button class="btn btn-default float-right" ng-click="signUpForSession(session.slot_ID)">Sign up for session</button>
+        </li>
+    </ul>
+
+</div>
   
  
 </div>

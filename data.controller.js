@@ -61,29 +61,9 @@
                 });
         }
          
-        /*
-         * Set the edit mode of a particular player
-         * on is true if we are setting edit mode to be on, false otherwise
-         * movie corresponds to the movie to which we are setting an edit mode
-         */
-        $scope.setEditMode = function (on, movie) {
-            if (on) {
-                //movie.reldate = parseInt(movie.reldate); 
-                $scope.editmovie = angular.copy(movie);
-                movie.editMode = true;
-            } else {
-                $scope.editmovie = null;
-                movie.editMode = false;
-            }
-        };
+       
 
-        /*
-         *Gets the edit mode for a particular movie
-         */
-        $scope.getEditMode = function (movie) {
-            return movie.editMode;
-
-        };
+       
 
         //some else if statements to handle different types of accounts
         //function to send new account information to web api to add it to the database
@@ -211,7 +191,25 @@
                }
             });
         };        
-
+// function to send new account information to web api to add it to the database-- check admin html
+        $scope.createNewAccount = function(accountDetails) {
+          var accountupload = angular.copy(accountDetails);
+          
+          $http.post("newAccount.php", accountupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "AdminHome.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+        };
 
         //function getLoggedInUser(username) {
           //  console.log(username);
