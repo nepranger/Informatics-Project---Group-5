@@ -20,6 +20,8 @@
             getAndSetCourses();
             getAndSetTutors();
             getAndSetFaculty();
+            getAndSetAvailableSessions();
+            getAndSetScheduledSessions();
         }
 
         function getAndSetAccounts() {
@@ -61,9 +63,45 @@
                 });
         }
          
-       
+        function getAndSetAvailableSessions() {
+            $http.get('getAvailableSessions.php')
+                .then(function (response) {
+                    $scope.availableSessionData = response.data.value;
+                    console.log('available', $scope.availableSessionData);
+                });
+        }
 
-       
+        function getAndSetScheduledSessions() {
+            $http.get('getScheduledSessions.php')
+                .then(function (response) {
+                    $scope.scheduledSessionData = response.data.value;
+                    console.log('scheduled', $scope.scheduledSessionData);
+                });
+        }
+
+        /*
+         * Set the edit mode of a particular player
+         * on is true if we are setting edit mode to be on, false otherwise
+         * movie corresponds to the movie to which we are setting an edit mode
+         */
+        $scope.setEditMode = function (on, movie) {
+            if (on) {
+                //movie.reldate = parseInt(movie.reldate); 
+                $scope.editmovie = angular.copy(movie);
+                movie.editMode = true;
+            } else {
+                $scope.editmovie = null;
+                movie.editMode = false;
+            }
+        };
+
+        /*
+         *Gets the edit mode for a particular movie
+         */
+        $scope.getEditMode = function (movie) {
+            return movie.editMode;
+
+        };
 
         //some else if statements to handle different types of accounts
         //function to send new account information to web api to add it to the database
@@ -138,19 +176,78 @@
                 });
         }
         
-        $scope.getAndSetSession = function(newSession) {
-            console.log('Set session', newSession);
-            newSession.month = newSession.available_date.getMonth()+1; // Thinks Jan is 0th month
-            newSession.day = newSession.available_date.getDay();
-            newSession.year = newSession.available_date.getYear();
-            
-            $http.post('addSession.php')
+        // setup an available tutor session
+        $scope.setSession = function(newSession) {
+            $http.post('addSession.php', newSession)
                 .then(function (response) {
-          
+                    if (response.status == 200) {
+                        if (response.data.status == 'error') {
+                            alert('error:' + response.data.message);
+                        } else {
+                            // successfully added session, refresh page
+                            $window.location.href = "TutorHome.html";
+                        }
+                    } else {
+                        alert('unexpected error');
+                    }
                 });
         };
-        
-        // function to delete an accoubt. it receives the account name hawk_id and call a php web api to complete deletion from the database
+
+        // sign up for a tutoring session as a student
+        $scope.signUpForSession = function(slot_ID) {
+            $http.post('signUpForSession.php', slot_ID)
+                .then(function (response) {
+                    if (response.status == 200) {
+                        if (response.data.status == 'error') {
+                            alert('error:' + response.data.message);
+                        } else {
+                            // successfully added session, refresh page
+                            $window.location.href = "StudentHome.html";
+                        }
+                    } else {
+                        alert('unexpected error');
+                    }
+                });
+        };
+
+        // cancel a session whether student or tutor 
+        $scope.cancelSession = function(session_ID, slot_ID) {
+            var data = { 'session_ID': session_ID, 'slot_ID': slot_ID };
+
+            $http.post('cancelSession.php', data)
+                .then(function (response) {
+                    if (response.status == 200) {
+                        if (response.data.status == 'error') {
+                            alert('error:' + response.data.message);
+                        } else {
+                            // successfully cancelled session, refresh page
+                            $window.location.reload();
+                        }
+                    } else {
+                        alert('unexpected error');
+                    }
+                });
+        };
+
+        //delete an available session that hasn't been scheduled
+        $scope.deleteAvailableSession = function(session_ID) {
+            $http.post('deleteSession.php', session_ID)
+                .then(function (response) {
+                    console.log('response: ', response);
+                    if (response.status == 200) {
+                        if (response.data.status == 'error') {
+                            alert('error:' + response.data.message);
+                        } else {
+                            // successfully deleted session, refresh page
+                            $window.location.href = "TutorHome.html";
+                        }
+                    } else {
+                        alert('unexpected error');
+                    }
+                });
+        };
+ 
+ // function to delete an accoubt. it receives the account name hawk_id and call a php web api to complete deletion from the database
         $scope.deleteUser = function(hawk_ID) {
             if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {
           
@@ -191,26 +288,6 @@
                }
             });
         };        
-// function to send new account information to web api to add it to the database-- check admin html
-        $scope.createNewAccount = function(accountDetails) {
-          var accountupload = angular.copy(accountDetails);
-          
-          $http.post("newAccount.php", accountupload)
-            .then(function (response) {
-               if (response.status == 200) {
-                    if (response.data.status == 'error') {
-                        alert('error: ' + response.data.message);
-                    } else {
-                        // successful
-                        // send user back to home page
-                        $window.location.href = "AdminHome.html";
-                    }
-               } else {
-                    alert('unexpected error');
-               }
-            });
-        };
-
         //function getLoggedInUser(username) {
           //  console.log(username);
           //  $http.post("getUserInfo.php", username)
@@ -225,5 +302,78 @@
         //THIS IS BEING CALLED EVERY TIME THE VIEW IS RELOADED
         //checkifloggedin();
     });
+       // function to edit user data and send it to web api to edit the user in the database
+        $scope.editUser = function(userDetails) {
+          var movieupload = angular.copy(userDetails);
+          
+          $http.post("editUser.php", movieupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "AdminHome.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+        };        
+        //function getLoggedInUser(username) {
+          //  console.log(username);
+          //  $http.post("getUserInfo.php", username)
+          //      .then(function (response) {
+                    //assigment will be how you formatted in the php
+                    //$scope.loggedInUser = {
+                    //   username: ''
+                    //};
+         //           $scope.loggedInUser = response.data;
+        //        });
+        //}
+        //THIS IS BEING CALLED EVERY TIME THE VIEW IS RELOADED
+        //checkifloggedin();
+    });
+    // function to edit user data and send it to web api to edit the user in the database
+        $scope.editUser = function(userDetails) {
+          var movieupload = angular.copy(userDetails);
+          
+          $http.post("editUser.php", movieupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "AdminHome.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+};
 
+// function to delete an accoubt. it receives the account name hawk_id and call a php web api to complete deletion from the database
+        $scope.deleteUser = function(hawk_ID) {
+            if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {
+          
+                $http.post("deleteUser.php", {"hawk_ID" : hawk_ID})
+                  .then(function (response) {
+                     if (response.status == 200) {
+                          if (response.data.status == 'error') {
+                              alert('error: ' + response.data.message);
+                          } else {
+                              // successful
+                              // send user back to home page
+                              $window.location.href = "AdminHome.html";
+                          }
+                     } else {
+                          alert('unexpected error');
+                     }
+                  }
+                );
+            }
+};
 })();
