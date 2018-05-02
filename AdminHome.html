@@ -84,7 +84,22 @@
                     <p ng-show="newAccountForm.name.$invalid && newAccountForm.name.$touched" >The password name must be at least two characters long</p>
                 </div>
                 <!-- newAccount is a function in the controller. movie refers to the word we used under ng-model in the input fields -->
+                <label>
+                 <input type="radio" ng-model="newAccount.type" value="student">
+                 student
+               </label><br/>
+               <label>
+                 <input type="radio" ng-model="newAccount.type" value="faculty">
+                 faculty
+               </label><br/>
+               <label>
+                 <input type="radio" ng-model="newAccount.type" value="tutor">
+                 tutor
+               </label> <br/>
                 <button class="btn btn-default" ng-click="createNewAccount(newaccount)" ng-disabled="newAccountForm.$invalid">Add User</button>
+                
+
+                   
             </form>
 
         
@@ -94,11 +109,7 @@
             
         
         </div> <!-- close row -->
-  <form action="">
-            <input type="radio" name="type" value="student"> Student<br>
-            <input type="radio" name="type" value="tutor"> Tutor<br>
-            <input type="radio" name="type" value="faculty"> Faculty
-        </form>
+  
 </body>
 
 

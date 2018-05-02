@@ -39,7 +39,7 @@
      </ul>
  </div>
 
-
+  
    
     <div class="col-sm">   
         <br>  
@@ -62,7 +62,7 @@
             <div class="form-group" ng-class="{ 'text-danger': newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched, 'text-success': !newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched}">
                 <label>Time: </label>
                 <input type="Time" class="form-control" ng-class="{ 'is-invalid': newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched, 'is-valid': !newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched}" name="available_time" ng-model="newSession.available_date" ng-minlength="2" />
-                <p ng-show="newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched" >Please enter a valid time</p>
+                <p ng-show="newSessionForm.available_time.$invalid && newSessionForm.available_time.$touched" >Pleaase enter a valid time</p>
             </div>
             
             <!-- setSession is a function in the controller.  -->

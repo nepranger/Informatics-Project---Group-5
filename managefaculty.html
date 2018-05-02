@@ -67,6 +67,8 @@
             </tr>
             <tr ng-repeat="faculty in facultyData.facultys">
                 <td>{{faculty.hawk_ID}}</td>
+                <td><button class="btn btn-primary" ng-click="deleteFaculty(faculty.hawk_ID)">Delete</button></td>
+                <td><button class="btn btn-primary" ng-click="editUser(true, user)">Edit</button></td>
                 
                
                 

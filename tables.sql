@@ -91,6 +91,10 @@ CREATE TABLE Tutor(
 --Insert some data into the Tutor Table
 INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("bwright", "CS:2620", "10");
 INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("fkeas", "CS:3980", "10");
+INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("tbaril", "CS:3980", "10");
+
+
+
 
 
 --Create the Faculty Table
@@ -106,6 +110,8 @@ CREATE TABLE Faculty(
 
 --Insert some data into the Faculty Table
 INSERT INTO Faculty (hawk_ID, course_ID) VALUES ("segre", "CS:1110");
+INSERT INTO Faculty (hawk_ID, course_ID) VALUES ("fbirch", "CS:1110");
+
 
 
 --Create the Problem Set Table

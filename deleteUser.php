@@ -30,7 +30,7 @@ $errorMessage = "";
 //
 
 // check if id got sent
-if (!isset($hawk_ID) && $hawk_ID == $hawk_ID)) {
+if (!isset($hawk_ID)) {
     $isComplete = false;
     $errorMessage .= "The deleteUser.php file requires a hawk_ID to be sent. ";
 }
@@ -38,7 +38,7 @@ if (!isset($hawk_ID) && $hawk_ID == $hawk_ID)) {
 // check if we there is a record in the database matching the id
 if ($isComplete) {
     // set up a query to check if the hawk_id passed to this file corresponds to a record in the database
-    $query = "SELECT hawk_ID FROM Student WHERE hawk_ID=$hawk_ID";
+    $query = "SELECT hawk_ID FROM Student WHERE hawk_ID='$hawk_ID'";
     
     // we need to run the query
     $result = queryDB($query, $db);
@@ -54,10 +54,17 @@ if ($isComplete) {
 // if we got this far and $isComplete is true it means we should delete the player from the database
 if ($isComplete) {
     // we will set up the delate statement to remove the player from the database
-    $deletequery = "DELETE FROM Student WHERE hawk_ID=$hawk_ID";
+    $deletequery = "DELETE FROM Student WHERE hawk_ID='$hawk_ID'";
     
     // run the delete statement
     queryDB($deletequery, $db);
+
+    // we will set up the delate statement to remove the player from the database
+    $deletequery = "DELETE FROM Account WHERE hawk_ID='$hawk_ID'";
+    
+    // run the delete statement
+    queryDB($deletequery, $db);
+
         
     // send a response back to angular
     $response = array();

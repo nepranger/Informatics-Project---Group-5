@@ -33,9 +33,9 @@ $errorMessage = "";
 // check if name meets criteria
 if (!isset($hawk_ID) || (strlen($hawk_ID) < 5)) {
     $isComplete = false;
-    $errorMessage .= "Please enter a title with at least five characters. ";
+    $errorMessage .= "Please enter a hawk_ID with at least five characters. ";
 } else {
-    $title = makeStringSafe($db, $hawk_ID);
+    $hawk_ID = makeStringSafe($db, $hawk_ID);
 }
 
 
@@ -44,7 +44,7 @@ if (!isset($hawk_ID) || (strlen($hawk_ID) < 5)) {
 // check if we already have a user with the same hawk_ID
 if ($isComplete) {
     // set up a query to check if this player is in the database already
-    $query = "SELECT hawk_ID FROM Student WHERE hawk_ID='$hawk_ID';
+    $query = "SELECT hawk_ID FROM Student WHERE hawk_ID='$hawk_ID'";
     
     // we need to run the query
     $result = queryDB($query, $db);
@@ -82,6 +82,12 @@ if ($isComplete) {
     
     // run the update statement
     queryDB($updatequery, $db);
+    
+    // we will set up the insert statement to add this new record to the database
+    $updatequery = "UPDATE Account SET hawk_ID='$hawk_ID'";
+    
+    // run the update statement
+    queryDB($updatequery, $db)
     
     // send a response back to angular
     $response = array();

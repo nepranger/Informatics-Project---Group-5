@@ -79,29 +79,7 @@
                 });
         }
 
-        /*
-         * Set the edit mode of a particular player
-         * on is true if we are setting edit mode to be on, false otherwise
-         * movie corresponds to the movie to which we are setting an edit mode
-         */
-        $scope.setEditMode = function (on, movie) {
-            if (on) {
-                //movie.reldate = parseInt(movie.reldate); 
-                $scope.editmovie = angular.copy(movie);
-                movie.editMode = true;
-            } else {
-                $scope.editmovie = null;
-                movie.editMode = false;
-            }
-        };
-
-        /*
-         *Gets the edit mode for a particular movie
-         */
-        $scope.getEditMode = function (movie) {
-            return movie.editMode;
-
-        };
+        
 
         //some else if statements to handle different types of accounts
         //function to send new account information to web api to add it to the database
@@ -233,7 +211,7 @@
         $scope.deleteAvailableSession = function(session_ID) {
             $http.post('deleteSession.php', session_ID)
                 .then(function (response) {
-                    console.log('response: ', response);
+                    console.log('response: ', response); // help check
                     if (response.status == 200) {
                         if (response.data.status == 'error') {
                             alert('error:' + response.data.message);
@@ -259,7 +237,49 @@
                           } else {
                               // successful
                               // send user back to home page
-                              $window.location.href = "AdminHome.html";
+                              $window.location.href = "managestudent.html";
+                          }
+                     } else {
+                          alert('unexpected error');
+                     }
+                  }
+                );
+            }
+        };
+// function to delete a tutor. it receives the account name hawk_id and call a php web api to complete deletion from the database
+        $scope.deleteTutor = function(hawk_ID) {
+            if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {
+          
+                $http.post("deleteTutor.php", {"hawk_ID" : hawk_ID})
+                  .then(function (response) {
+                     if (response.status == 200) {
+                          if (response.data.status == 'error') {
+                              alert('error: ' + response.data.message);
+                          } else {
+                              // successful
+                              // send user back to home page
+                              $window.location.href = "managetutor.html";
+                          }
+                     } else {
+                          alert('unexpected error');
+                     }
+                  }
+                );
+            }
+        };
+// function to delete a faculty memeber. it receives the account name hawk_id and call a php web api to complete deletion from the database
+        $scope.deleteFaculty = function(hawk_ID) {
+            if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {
+          
+                $http.post("deleteFaculty.php", {"hawk_ID" : hawk_ID})
+                  .then(function (response) {
+                     if (response.status == 200) {
+                          if (response.data.status == 'error') {
+                              alert('error: ' + response.data.message);
+                          } else {
+                              // successful
+                              // send user back to home page
+                              $window.location.href = "managefaculty.html";
                           }
                      } else {
                           alert('unexpected error');
@@ -269,6 +289,25 @@
             }
         };
         
+        // function to send new account information to web api to add it to the database-- check admin html
+        $scope.createNewAccount = function(accountDetails) {
+          var accountupload = angular.copy(accountDetails);
+          
+          $http.post("newAccount.php", accountupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "AdminHome.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+        };
                
         //function getLoggedInUser(username) {
           //  console.log(username);

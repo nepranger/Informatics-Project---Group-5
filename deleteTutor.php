@@ -12,74 +12,63 @@ $db = connectDB($DBHost, $DBUser, $DBPassword, $DBName);
 // decode the json object
 $data = json_decode(file_get_contents('php://input'), true);
 
-
 // get each piece of data
 
-// 
+// 'name' matches the name attribute in the form
 $hawk_ID = $data['hawk_ID'];
-$password = $data['password'];
-$name =  $data['name'];
-$type = $data['type'];
+
 
 // set up variables to handle errors
 // is complete will be false if we find any problems when checking on the data
 $isComplete = true;
 
 // error message we'll send back to angular if we run into any problems
-$errorMessage = "error";
+$errorMessage = "";
 
 //
 // Validation
 //
 
-// check if username meets criteria
-if (!isset($hawk_ID) || (strlen($hawk_ID) < 2)) {
+// check if id got sent
+if (!isset($hawk_ID)) {
     $isComplete = false;
-    $errorMessage .= "Please enter a username with at least two characters. ";
-} else {
-    $hawk_ID = makeStringSafe($db, $hawk_ID);
+    $errorMessage .= "The deleteTutor.php file requires a hawk_ID to be sent. ";
 }
 
-if (!isset($password) || (strlen($password) < 6)) {
-    $isComplete = false;
-    $errorMessage .= "Please enter a password with at least six characters. ";
-} else 
-
-
-// check if we already have a username that matches the one the user entered
+// check if we there is a record in the database matching the id
 if ($isComplete) {
-    // set up a query to check if this username is in the database already
-    $query = "SELECT name FROM Account WHERE hawk_ID='$hawk_ID'";
+    // set up a query to check if the hawk_id passed to this file corresponds to a record in the database
+    $query = "SELECT hawk_ID FROM Tutor WHERE hawk_ID='$hawk_ID'";
     
     // we need to run the query
     $result = queryDB($query, $db);
     
     // check on the number of records returned
-    if (nTuples($result) > 0) {
-        // if we get at least one record back it means the username is taken
+    if (nTuples($result) == 0) {
+        // if we get no recors back, it means no records match the id that we got
         $isComplete = false;
-        $errorMessage .= "The username $hawk_ID is already taken. Please select a different username. ";
+        $errorMessage .= "The hawk_ID $hawk_ID did not match any records in the Tutor table. ";
     }
 }
 
-// if we got this far and $isComplete is true it means we should add the player to the database
+// if we got this far and $isComplete is true it means we should delete the player from the database
 if ($isComplete) {
-    // create a hashed version of the password
-    $hashedpass = crypt($password, getSalt());
+    // we will set up the delate statement to remove the player from the database
+    $deletequery = "DELETE FROM Tutor WHERE hawk_ID='$hawk_ID'";
     
-    // we will set up the insert statement to add this new record to the database
-    $insertquery = "INSERT INTO Account(hawk_ID, hashedpass, name) VALUES ('$hawk_ID', '$hashedpass', '$name')";
+    // run the delete statement
+    queryDB($deletequery, $db);
 
-    // run the insert statement
-    queryDB($insertquery, $db);
+    // we will set up the delate statement to remove the player from the database
+    $deletequery = "DELETE FROM Account WHERE hawk_ID='$hawk_ID'";
     
-    // get the id of the account we just entered
-    $accountid = mysqli_insert_id($db);
-    
+    // run the delete statement
+    queryDB($deletequery, $db);
+
+        
     // send a response back to angular
     $response = array();
     $response['status'] = 'success';
-    $response['id'] = $accountid;
     header('Content-Type: application/json');
     echo(json_encode($response));    
 } else {
