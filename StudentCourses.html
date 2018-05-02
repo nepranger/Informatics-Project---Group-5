@@ -1,5 +1,16 @@
 <!doctype html>
+<style type = "text/css">
+    body {
+        background-image: url("lap.png");
+        height: 100%; 
 
+    /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position: inherit;
+    }
+
+ </style>
 <!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->
 <html lang='en' ng-app="project">
 
@@ -25,12 +36,11 @@
     <!--movie. controller.js-allows us to display HTML code-->
     <script src="project.filter.js"></script>
 </head>
-
 <body>
     <!-- Main Content -->
     <div class="container" ng-controller="dataControl">
 
-        <h1 class="text-center">Student Home</h1>
+        <h1 class="text-center"><font color = "white">Student Home</font></h1>
         <div class="nav-center">
             <!-- Student Menu -->
             <ul class="nav nav-pills nav-justified">
@@ -54,10 +64,10 @@
 
         <table style="width:100%">
             <tr>
-                <td>Course Name</td>
-                <td>Course ID</td>
-                <td>Course Number</td>
-                <td>Course Section</td>
+                <td><font color= "white">Course Name</font></td>
+                <td><font color= "white">Course ID</font></td>
+                <td><font color= "white">Course Number</font></td>
+                <td><font color= "white">Course Section</font></td>
             </tr>
             <tr ng-repeat="course in courseData.courses">
                 <td>{{course.course_name}}</td>
