@@ -31,7 +31,7 @@ if (!isset($slot_ID)) {
 } else {
     $slot_ID = makeStringSafe($db, $slot_ID);
 }
-
+//needed to differentiate
 session_start();
 $student_hawk_ID = $_SESSION['username'];
 $account_type = $_SESSION['accountType'];
@@ -42,7 +42,7 @@ if (!isset($account_type) || $account_type != 'student') {
     $errorMessage .= "You must be a student to sign up for a session.";
 }
 
-// get Tutor_Available info to fill in Tutor_session info
+// get Tutor_Available info to fill in Tutor_session info-- remember to join tables
 if ($isComplete) {
     $query = "SELECT * FROM Tutor_Availability JOIN Tutor ON Tutor.hawk_ID=Tutor_Availability.hawk_ID WHERE slot_ID='$slot_ID';";
 
@@ -66,7 +66,10 @@ if ($isComplete) {
 if ($isComplete) {
     // Set available session to scheduled
     $updateQuery = "UPDATE Tutor_Availability SET scheduled=1 WHERE slot_ID='$slot_ID';";
-    queryDB($updateQuery, $db);    
+    queryDB($updateQuery, $db);-
+// student budget 
+    $updateQuery = "UPDATE Student SET budget= budget-1 WHERE hawk_ID='$hawk_ID';";
+    queryDB($updateQuery, $db);  
 
     // we will set up the insert statement to add this new record to the database
     $insertquery = "INSERT INTO Tutor_Session(tutor_hawk_ID, student_hawk_ID, course_ID, session_date, slot_ID) VALUES ('$tutor_hawk_ID', '$student_hawk_ID', '$course_ID', '$session_date', '$slot_ID')";

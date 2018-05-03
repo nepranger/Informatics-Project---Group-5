@@ -45,6 +45,9 @@ if ($isComplete) {
     } else if ($accountType == 'student') {
         //cancelled by student
         $updateQuery = "UPDATE Tutor_Session SET cancelled_By_Student=1 WHERE student_hawk_ID='$hawk_ID' AND session_ID='$session_ID';";
+        $updateQuery = "UPDATE Student SET budget= budget +1 WHERE hawk_ID='$hawk_ID';";
+
+
     }
 
     //mark session as available again
@@ -61,6 +64,8 @@ if ($isComplete) {
     $response = array();
     $response['status'] = 'success';
     $response['id'] = $sessionid;
+    $response['budget'] = $budget;
+    
     header('Content-Type: application/json');
     echo(json_encode($response));    
 } else {

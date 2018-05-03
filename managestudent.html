@@ -42,7 +42,7 @@
       <li class="nav-item"><a class="nav-link" href="managetutor.html">Manage Tutors</a></li>
       <li class="nav-item"><a class="nav-link" href="managefaculty.html">Manage Faculty</a></li>
       <li class="nav-item"><a class="nav-link" href="managecourses.html">Manage Courses</a></li>
-      <li class="nav-item" ng-show="isloggedin"><a class="nav-link" href="home.html" ng-click="logout()">Logout</a>
+      <li class="nav-item"><a class="nav-link" href="login.html" ng-click="logout()">Logout</a></li>  
 
 
      </ul>
@@ -62,7 +62,28 @@
                 <td>{{student.budget}}</td>
                 <td><button class="btn btn-primary" ng-click="deleteUser(student.hawk_ID)">Delete</button></td>
                 <td><button class="btn btn-primary" ng-click="editUser(true, user)">Edit</button></td>
+ <!-- E D I T    M O D E -->                    
+        <div ng-if="getEditMode(user)">
+            <!-- edit mode -->
+            
+            <form  name="newUserForm" novalidate>
+            
+                <div class="table">
+                    <!-- name of the movie -->
+                <div class="form-group" ng-class="{ 'text-danger': newUserForm.title.$invalid && newUserForm.title.$touched, 'text-success': !newUserForm.hawk_ID.$invalid && newUserForm.hawk_ID.$touched }">
+                    <label class="form-control-label" for="hawk_ID">hawk_id: </label>
+                    <input type="text" class="form-control" ng-class="{ 'is-invalid': newUserForm.name.$invalid && newUserForm.hawk_ID.$touched, 'is-valid': !newUserForm.hawk_ID.$invalid && newUserForm.name.$touched }" name="hawk_ID" ng-model="edituser.hawk_ID" ng-minlength="5" id="hawk_ID " required/>
+                    <div ng-show="newUserForm.hawk_ID.$invalid && newUserForm.hawk_ID.$touched" >hawk_ID must be 5 characters long-</div>
+                </div>
+                
+               
 
+
+                    <button class="btn btn-primary" ng-click="editUser(edituser)">Save</button>
+                    <button class="btn btn-primary" ng-click="setEditUser(false, movie)">Cancel</button>
+                </div>
+            
+            </form>
 
  
             </tr>

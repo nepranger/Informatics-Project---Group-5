@@ -42,7 +42,8 @@
       <li class="nav-item"><a class="nav-link " href="managetutor.html">Manage Tutors</a></li>
       <li class="nav-item"><a class="nav-link " href="managefaculty.html">Manage Faculty</a></li>
       <li class="nav-item"><a class="nav-link active" href="managecourses.html">Manage Courses</a></li>
-      <li class="nav-item" ng-show="isloggedin"><a class="nav-link" href="home.html" ng-click="logout()">Logout</a>
+      <li class="nav-item"><a class="nav-link" href="login.html" ng-click="logout()">Logout</a></li>  
+
 
 
      </ul>
@@ -56,47 +57,23 @@
         <div ng-include ng-init="menuHighlight = 1;" src="'header.html'"></div>
         
         
-        <!-- form for entering new movie -->
-        <div class="row">
-            
-              
-            <form  name="newAccountForm" novalidate>
-                
-                <!-- name of the movie -->
-                <div class="form-group" ng-class="{ 'text-danger': newAccountForm.hawk_ID.$invalid && newAccountForm.hawk_ID.$touched, 'text-success': !newAccountForm.hawk_ID.$invalid && newAccountForm.hawk_ID.$touched }">
-                    <label class="form-control-label" for="name">hawk_ID: </label>
-                    <input type="text" class="form-control" ng-class="{ 'is-invalid': newAccountForm.name.$invalid && newAccountForm.name.$touched, 'is-valid': !newAccountForm.name.$invalid && newAccountForm.name.$touched }" name="hawk_ID" ng-model="newaccount.hawk_ID" ng-minlength="2" id="hawk_ID " required/>
-                    <div ng-show="newAccountForm.name.$invalid && newAccountForm.name.$touched" >The hawkID must be at least two characters long</div>
-                </div>
-                
-                <!-- password of the movie -->
-                <!-- ng-class sets up the style for this element. You'll find a format of 'style': condition, 'style2': condition2 -->
-                <!-- notice in ng-class we are using the name of the form, and the name of the input element in the codition statements -->
-                <div class="form-group" ng-class="{ 'text-danger': newAccountForm.password.$invalid && newAccountForm.password.$touched, 'text-success': !newAccountForm.password.$invalid && newAccountForm.password.$touched}">
-                    <label>Password: </label>
-                    <input type="text" class="form-control" ng-class="{ 'is-invalid': newAccountForm.password.$invalid && newAccountForm.password.$touched, 'is-valid': !newAccountForm.password.$invalid && newAccountForm.password.$touched}" name="password" ng-model="newaccount.password" ng-minlength="2" />
-                    <p ng-show="newAccountForm.password.$invalid && newAccountForm.password.$touched" >The password name must be at least two characters long</p>
-                </div>
-                
-                 <!-- name of user -->
-                <!-- ng-class sets up the style for this element. You'll find a format of 'style': condition, 'style2': condition2 -->
-                <!-- notice in ng-class we are using the name of the form, and the name of the input element in the codition statements -->
-                <div class="form-group" ng-class="{ 'text-danger': newAccountForm.name.$invalid && newAccountForm.name.$touched, 'text-success': !newAccountForm.name.$invalid && newAccountForm.name.$touched}">
-                    <label>Name: </label>
-                    <input type="text" class="form-control" ng-class="{ 'is-invalid': newAccountForm.name.$invalid && newAccountForm.name.$touched, 'is-valid': !newAccountForm.name.$invalid && newAccountForm.name.$touched}" name="name" ng-model="newaccount.name" ng-minlength="2" />
-                    <p ng-show="newAccountForm.name.$invalid && newAccountForm.name.$touched" >The password name must be at least two characters long</p>
-                </div>  
-
-              
-                
-                <!-- newAccount is a function in the controller. movie refers to the word we used under ng-model in the input fields -->
-                <button class="btn btn-default" ng-click="createNewAccount(newaccount)" ng-disabled="newAccountForm.$invalid">Add User</button>
-            </form>
-            
+                   
         
         </div> <!-- close row -->
         
-        
+ <table style="width:100%">
+            <tr>
+                <td>Course Name</td>
+                
+                
+            </tr>
+            <tr ng-repeat="course in courseData.courses">
+                <td>{{course.course_name}}</td>
+                <td><button class="btn btn-primary" ng-click="deleteCourse(course.course_name)">Delete</button></td>
+                <td><button class="btn btn-primary" ng-click="editUser(true, user)">Edit</button></td>
+               
+                
+            </tr>
         
     </div>
 </body>

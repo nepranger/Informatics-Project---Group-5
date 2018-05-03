@@ -42,13 +42,13 @@
       <li class="nav-item"><a class="nav-link " href="managetutor.html">Manage Tutors</a></li>
       <li class="nav-item"><a class="nav-link active" href="managefaculty.html">Manage Faculty</a></li>
       <li class="nav-item"><a class="nav-link" href="managecourses.html">Manage Courses</a></li>
-      <li class="nav-item" ng-show="isloggedin"><a class="nav-link" href="home.html" ng-click="logout()">Logout</a>
-
+      <li class="nav-item"><a class="nav-link" href="login.html" ng-click="logout()">Logout</a></li>  
 
      </ul>
     </div>
    </div>
   </div>
+  
  <!-- we are defining the angular controller that we will use in this chunk of html defined by the div as 'dataControl' from data.soccer.controller.js -->
     <div class="container" ng-controller="dataControl">
         
@@ -62,6 +62,7 @@
         <table style="width:100%">
             <tr>
                 <td>Faculty Name</td>
+                
                 
                 
             </tr>

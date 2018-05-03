@@ -43,7 +43,7 @@ if (!isset($hawk_ID) || (strlen($hawk_ID) < 5)) {
 
 // check if we already have a user with the same hawk_ID
 if ($isComplete) {
-    // set up a query to check if this player is in the database already
+    // set up a query to check if this user is in the database already
     $query = "SELECT hawk_ID FROM Student WHERE hawk_ID='$hawk_ID'";
     
     // we need to run the query
@@ -75,7 +75,7 @@ if ($isComplete) {
 }
 
 
-// if we got this far and $isComplete is true it means we should edit the player in the database
+// if we got this far and $isComplete is true it means we should edit the user in the database
 if ($isComplete) {
     // we will set up the insert statement to add this new record to the database
     $updatequery = "UPDATE Student SET hawk_ID='$hawk_ID'";

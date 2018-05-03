@@ -20,6 +20,7 @@
             getAndSetCourses();
             getAndSetTutors();
             getAndSetFaculty();
+            getAndSetCourse();
             getAndSetAvailableSessions();
             getAndSetScheduledSessions();
         }
@@ -55,6 +56,7 @@
                     console.log($scope.courseData);
                 });
         }
+        
         function getAndSetFaculty() {
             $http.get('getFaculty.php')
                 .then(function (response) {
@@ -62,7 +64,13 @@
                     console.log($scope.facultyData);
                 });
         }
-         
+         function getAndSetCourse() {
+            $http.get('getCourse.php')
+                .then(function (response) {
+                    $scope.courseData = response.data.value;
+                    console.log($scope.courseData);
+                });
+        }
         function getAndSetAvailableSessions() {
             $http.get('getAvailableSessions.php')
                 .then(function (response) {
@@ -267,6 +275,27 @@
                 );
             }
         };
+// function to delete a course. it receives the course name and call a php web api to complete deletion from the database
+        $scope.deleteCourse = function(course_name) {
+            if (confirm("Are you sure you want to delete " + course_name + "?")) {
+          
+                $http.post("deleteCourse.php", {"course_name" : course_name})
+                  .then(function (response) {
+                     if (response.status == 200) {
+                          if (response.data.status == 'error') {
+                              alert('error: ' + response.data.message);
+                          } else {
+                              // successful
+                              // send user back to home page
+                              $window.location.href = "managecourses.html";
+                          }
+                     } else {
+                          alert('unexpected error');
+                     }
+                  }
+                );
+            }
+        };
 // function to delete a faculty memeber. it receives the account name hawk_id and call a php web api to complete deletion from the database
         $scope.deleteFaculty = function(hawk_ID) {
             if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {
@@ -308,7 +337,39 @@
                }
             });
         };
-               
+ // function to edit player data and send it to web api to edit the player in the database
+        $scope.editUser = function(userDetails) {
+          var userupload = angular.copy(userDetails);
+          
+          $http.post("editUser.php", userupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "managestudent.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+        };
+/*
+         * Set edit mode of a particular user
+         * on is true if we are setting edit mode to be on, false otherwise
+         * user corresponds to the user for which we are setting an edit mode
+         */
+        $scope.setEditMode = function(on, user) {
+            if (on) {
+            
+                $scope.edituser = angular.copy(user);
+                user.editMode = true;
+            } else {
+                user.editMode = false;
+            }
+        };
         //function getLoggedInUser(username) {
           //  console.log(username);
           //  $http.post("getUserInfo.php", username)
