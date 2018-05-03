@@ -97,6 +97,8 @@ if ($isComplete && !$is_admin){
     $result = queryDB($query, $db);
     if (nTuples($result) > 0){
         $account_type = 'student';
+        $row  = nextTuple($result);
+        $budget = $row['budget'];
     }
     else {
         $query = "SELECT hawk_ID, course_ID, hours_per_week FROM Tutor WHERE hawk_ID = '$hawk_ID'";
@@ -136,6 +138,8 @@ if ($isComplete) {
     $response['message'] = 'logged in';
     $response['accountType'] = $account_type;
     $response['isadmin'] = $is_admin;
+    $response['budget'] = $budget;
+
     header('Content-Type: application/json');
     echo(json_encode($response));
     
