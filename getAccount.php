@@ -16,7 +16,7 @@ $query = "SELECT * FROM Account";
     //administrator BIT DEFAULT 0,
     //PRIMARY KEY(hawk_ID)
 
-//run the query to get info on players
+//run the query to get info on users
 $result = queryDB($query, $db);
 
 //assign results to an array we can then send back

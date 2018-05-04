@@ -35,7 +35,7 @@ if (!isset($available_date)) {
 } else {
     $available_date = makeStringSafe($db, $available_date);
 }
-
+//check for type
 session_start();
 $hawk_ID = $_SESSION['username'];
 $account_type = $_SESSION['accountType'];

@@ -80,12 +80,13 @@ if ($isComplete){
     $hawk_ID = $row['hawk_ID'];
     
     //compare entered password to the password on the database
-    // if ($hashedpass != crypt($password, $hashedpass)){
-    //     //if password is incorrect
-    //     $errorMessage .= "The password you entered is incorrect. ";
-    //     $isComplete = false;
+    if ($hashedpass != crypt($password, $hashedpass)){
+         //if password is incorrect
+         $errorMessage .= "The password you entered is incorrect. ";
+         $isComplete = false;
         
-    // }
+    
+     }
 }
 
 if ($isComplete && !$is_admin){

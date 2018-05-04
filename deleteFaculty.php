@@ -51,15 +51,15 @@ if ($isComplete) {
     }
 }
 
-// if we got this far and $isComplete is true it means we should delete the player from the database
+// if we got this far and $isComplete is true it means we should delete the user from the database
 if ($isComplete) {
-    // we will set up the delate statement to remove the player from the database
+    // we will set up the delate statement to remove the user from the database
     $deletequery = "DELETE FROM Faculty WHERE hawk_ID='$hawk_ID'";
     
     // run the delete statement
     queryDB($deletequery, $db);
 
-    // we will set up the delate statement to remove the player from the database
+    // we will set up the delate statement to remove the user from the database
     $deletequery = "DELETE FROM Account WHERE hawk_ID='$hawk_ID'";
     
     // run the delete statement

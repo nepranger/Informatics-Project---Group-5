@@ -1,5 +1,5 @@
 /*
- *Controller where we get the data on the movies
+ *Controller where we get the data for the project
  */
 (function () {
     'use strict';
@@ -367,7 +367,18 @@
                 $scope.edituser = angular.copy(user);
                 user.editMode = true;
             } else {
+                if (user != null) {
                 user.editMode = false;
+                $scope.edituser = null;
+                }
+            }
+        };
+                /*
+         * Gets the edit mode for a particular player
+         */
+        $scope.getEditMode = function(user) {
+            if (user != null) {
+            return user.editMode;
             }
         };
         //function getLoggedInUser(username) {

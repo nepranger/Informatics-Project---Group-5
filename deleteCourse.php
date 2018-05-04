@@ -51,15 +51,15 @@ if ($isComplete) {
     }
 }
 
-// if we got this far and $isComplete is true it means we should delete the player from the database
+// if we got this far and $isComplete is true it means we should delete the course from the database
 if ($isComplete) {
-    // we will set up the delate statement to remove the player from the database
+    // we will set up the delate statement to remove the course from the database
     $deletequery = "DELETE FROM Course WHERE course_name='$course_name'";
     
     // run the delete statement
     queryDB($deletequery, $db);
 
-    // we will set up the delate statement to remove the player from the database
+    // we will set up the delate statement to remove the course from the database
     $deletequery = "DELETE FROM Account WHERE course_name='$course_name'";
     
     // run the delete statement

@@ -1,6 +1,6 @@
  <!doctype html>
  
-<!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->   
+<!--ng-app "project" defines the angular app that we are using. The name is defined in the movie.module.js -->   
 <html lang='en' ng-app="project">
 <head>
     <title>Administrator Portal</title>
@@ -51,47 +51,48 @@
   </div>
  
         
-          <table style="width:100%">
+    <table style="width:100%">
+        <thead>
             <tr>
                 <td>Student Name</td>
                 <td>Budget </td>
-                
             </tr>
+        </thead>
+        <tbody>
             <tr ng-repeat="student in studentData.students">
-                <td>{{student.hawk_ID}}</td>
-                <td>{{student.budget}}</td>
-                <td><button class="btn btn-primary" ng-click="deleteUser(student.hawk_ID)">Delete</button></td>
-                <td><button class="btn btn-primary" ng-click="editUser(true, user)">Edit</button></td>
+                <div>
+                <div ng-init="setEditMode(false, student);"></div>
+                <div ng-if="!getEditMode(student)">
+                    <td>{{student.hawk_ID}}</td>
+                    <td>{{student.budget}}</td>
+                    <td><button class="btn btn-primary" ng-click="deleteUser(student.hawk_ID)">Delete</button></td>
+                    <td><button class="btn btn-primary" ng-click="setEditMode(true,student)">Edit</button></td>
+                </div>
  <!-- E D I T    M O D E -->                    
-        <div ng-if="getEditMode(user)">
+                <div ng-if="getEditMode(student)">
             <!-- edit mode -->
             
-            <form  name="newUserForm" novalidate>
+                    <form  name="newUserForm" novalidate>
             
-                <div class="table">
-                    <!-- name of the movie -->
-                <div class="form-group" ng-class="{ 'text-danger': newUserForm.title.$invalid && newUserForm.title.$touched, 'text-success': !newUserForm.hawk_ID.$invalid && newUserForm.hawk_ID.$touched }">
-                    <label class="form-control-label" for="hawk_ID">hawk_id: </label>
-                    <input type="text" class="form-control" ng-class="{ 'is-invalid': newUserForm.name.$invalid && newUserForm.hawk_ID.$touched, 'is-valid': !newUserForm.hawk_ID.$invalid && newUserForm.name.$touched }" name="hawk_ID" ng-model="edituser.hawk_ID" ng-minlength="5" id="hawk_ID " required/>
-                    <div ng-show="newUserForm.hawk_ID.$invalid && newUserForm.hawk_ID.$touched" >hawk_ID must be 5 characters long-</div>
-                </div>
+                        <!-- name of the user -->
+                        <div class="form-group" ng-class="{ 'text-danger': newUserForm.title.$invalid && newUserForm.title.$touched, 'text-success': !newUserForm.hawk_ID.$invalid && newUserForm.hawk_ID.$touched }">
+                            <label class="form-control-label" for="hawk_ID">hawk_id: </label>
+                            <input type="text" class="form-control" ng-class="{ 'is-invalid': newUserForm.name.$invalid && newUserForm.hawk_ID.$touched, 'is-valid': !newUserForm.hawk_ID.$invalid && newUserForm.name.$touched }" name="hawk_ID" ng-model="edituser.hawk_ID" ng-minlength="5" id="hawk_ID " required/>
+                            <div ng-show="newUserForm.hawk_ID.$invalid && newUserForm.hawk_ID.$touched" >hawk_ID must be 5 characters long-</div>
+                        </div>
                 
-               
-
-
-                    <button class="btn btn-primary" ng-click="editUser(edituser)">Save</button>
-                    <button class="btn btn-primary" ng-click="setEditUser(false, movie)">Cancel</button>
+                        <button class="btn btn-primary" ng-click="editUser(edituser)">Save</button>
+                        <button class="btn btn-primary" ng-click="setEditUser(false, user)">Cancel</butto
+                    </form>
                 </div>
-            
-            </form>
-
- 
+                </div>
             </tr>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</div>
+ 
+ 
+
 </body>
 
-        
-    </div>
-</body>
 </html>

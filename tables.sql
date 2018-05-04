@@ -129,6 +129,7 @@ CREATE TABLE Problem_Set(
 CREATE TABLE Tutor_Availability(
     slot_ID INT NOT NULL AUTO_INCREMENT, 
     hawk_ID VARCHAR(120) NOT NULL,
+    student_hawk_ID VARCHAR(120) NOT NULL,
     available_date VARCHAR(120),
     scheduled BIT NOT NULL DEFAULT 0,
     PRIMARY KEY(slot_ID, hawk_ID),

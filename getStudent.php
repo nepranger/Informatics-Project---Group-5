@@ -9,10 +9,10 @@ include_once('dbutils.php');
 //Get a connection to the database
 $db = connectDB($DBHost, $DBUser, $DBPassword, $DBName);
 
-//Set up a query to get information on movies
+//Set up a query to get information on student
 $query = "SELECT * FROM Student";
 
-//run the query to get info on players
+//run the query to get info on students
 $result = queryDB($query, $db);
 
 //assign results to an array we can then send back

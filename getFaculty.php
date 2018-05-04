@@ -9,10 +9,10 @@ include_once('dbutils.php');
 //Get a connection to the database
 $db = connectDB($DBHost, $DBUser, $DBPassword, $DBName);
 
-//Set up a query to get information on movies
+//Set up a query to get information on faculty
 $query = "SELECT * FROM Faculty";
 
-//run the query to get info on players
+//run the query to get info on fac
 $result = queryDB($query, $db);
 
 //assign results to an array we can then send back
@@ -25,7 +25,7 @@ while ($currFaculty = nextTuple($result)) {
     $i++;
 }
 
-//put together a JSON object to send back the data on the students
+//put together a JSON object to send back the data on the fac
 $response = array();
 $response['status'] = 'success';
 $response['value']['facultys'] = $facultys;

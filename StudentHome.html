@@ -1,6 +1,6 @@
 <!doctype html>
  
-<!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->   
+<!--ng-app "project" defines the angular app that we are using. The name is defined in the project.module.js -->   
 <html lang='en' ng-app="project">
 <head>
     <title>Student Portal</title>
@@ -46,6 +46,7 @@
     <br>
     <div>
     <ul class="list-group">
+        <!-- Show Scheduled Session -->
         <li class="list-group-item" ng-repeat="scheduled in scheduledSessionData.sessions">
             <div ng-if="scheduled.cancelled_By_Student == 0 && scheduled.cancelled_By_Tutor == 0">
                 <span class="float-left">{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>
@@ -69,8 +70,9 @@
     <br>
     <div>
     <ul class="list-group">
+        <!-- Show available sessions -->
         <li class="list-group-item" ng-repeat="session in availableSessionData.sessions">
-            <span class="float-left">{{ session.available_date | date:'MM/dd/yyyy @ h:mma' }} with {{ session.name }}</span>
+            <span class="float-left">{{ session.available_date | date:'MM/dd/yyyy @ h:mma' }} with {{ session.name }}</span> <!-- show name of tut -->
             <button class="btn btn-default float-right" ng-click="signUpForSession(session.slot_ID)">Sign up for session</button>
         </li>
     </ul>

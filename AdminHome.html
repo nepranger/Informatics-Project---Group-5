@@ -1,6 +1,6 @@
 <!doctype html>
  
-<!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->   
+<!--ng-app "project" defines the angular app that we are using. The name is defined in the project.module.js -->   
 <html lang='en' ng-app="project">
 <head>
     <title>Administrator Portal</title>
@@ -28,7 +28,7 @@
   
  <h1 class="text-center">Administrator Home</h1>
  <div class="nav-center">
-      <!-- Student Menu -->
+      <!-- Admin Menu -->
      <ul class="nav nav-pills nav-justified">
       <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
       <li class="nav-item"><a class="nav-link" href="managestudent.html">Manage Students</a></li>
@@ -46,14 +46,14 @@
  
 </div>
  
-<!-- we are defining the angular controller that we will use in this chunk of html defined by the div as 'dataControl' from data.soccer.controller.js -->
+<!-- we are defining the angular controller that we will use in this chunk of html defined by the div as 'dataControl' from data.controller.js -->
     <div class="container" ng-controller="dataControl">
         
         <!-- header -->
         <div ng-include ng-init="menuHighlight = 1;" src="'header.html'"></div>
         
         
-        <!-- form for entering new movie -->
+        <!-- form for entering new user -->
         <div class="row">
             
               
@@ -83,7 +83,7 @@
                     <input type="text" class="form-control" ng-class="{ 'is-invalid': newAccountForm.name.$invalid && newAccountForm.name.$touched, 'is-valid': !newAccountForm.name.$invalid && newAccountForm.name.$touched}" name="name" ng-model="newaccount.name" ng-minlength="2" />
                     <p ng-show="newAccountForm.name.$invalid && newAccountForm.name.$touched" >The password name must be at least two characters long</p>
                 </div>
-                <!-- newAccount is a function in the controller. movie refers to the word we used under ng-model in the input fields -->
+                <!-- newAccount is a function in the controller.  refers to the word we used under ng-model in the input fields -->
                 <label>
                  <input type="radio" ng-model="newAccount.type" value="student">
                  student

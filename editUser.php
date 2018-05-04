@@ -61,7 +61,7 @@ if ($isComplete) {
 // check if the id passed to this api corresponds to an existing record in the database
 if ($isComplete) {
     // set up a query to check if this user is in the database already
-    $query = "SELECT hawk_ID FROM Student WHERE hawk_ID=$hawk_ID";
+    $query = "SELECT hawk_ID FROM Student WHERE hawk_ID='$hawk_ID'";
     
     // we need to run the query
     $result = queryDB($query, $db);
