@@ -20,6 +20,7 @@
             getAndSetCourses();
             getAndSetTutors();
             getAndSetFaculty();
+            getAndSetStudentCourses();
             getAndSetAvailableSessions();
             getAndSetScheduledSessions();
         }
@@ -62,7 +63,13 @@
                     console.log($scope.facultyData);
                 });
         }
-         
+         function getAndSetStudentCourses() {
+            $http.get('getStudentCourses.php')
+                .then(function (response) {
+                    $scope.scourseData = response.data.value;
+                    console.log($scope.scourseData);
+                });
+        }
         function getAndSetAvailableSessions() {
             $http.get('getAvailableSessions.php')
                 .then(function (response) {
@@ -245,7 +252,8 @@
                 );
             }
         };
- 
+       
+
  // function to delete an accoubt. it receives the account name hawk_id and call a php web api to complete deletion from the database
         $scope.deleteUser = function(hawk_ID) {
             if (confirm("Are you sure you want to delete " + hawk_ID + "?")) {

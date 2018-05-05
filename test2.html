@@ -50,19 +50,20 @@
             </ul>
         </div>
 
-        <table style="width:100%">
-            <tr>
-                <td>Course Name</td>
-                <td>Course ID</td>
-                <td>Course Number</td>
-                <td>Course Section</td>
-            </tr>
-            <tr ng-repeat="scourse in scourseData.scourses">
-                <td>{{scourse.course_name}}</td>
-                <td>{{scourse.course_ID}}</td>
-                <td>{{scourse.course_number}}</td>
-                <td>{{scourse.course_section}}</td>
-            </tr>
-        </table>
-    </div>
+          <!-- Card for all movies -->
+            <!-- We are getting our data from $scope.data in data.movie.controller.js. The JSON object we get has the data under "players" -->
+            <!-- We are defining each "row" of data as player -->
+            <div class="card m-1" style="width: 18rem" ng-repeat="scourse in scourseData.scourses">
+                <div class="card-header">
+                    {{scourse.course_name}}
+                </div>
+                
+                <div class="card-body">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <!-- trustHtml is the filter that enables html to be put out. the name is defined under safe.filter.js -->
+                    </div>
+                    <p>Director: {{course.course_name}}</p>
+                    <p>Year: {{course.course_ID}}</p>
+                </div>
+            </div>
 </body>
