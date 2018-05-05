@@ -337,6 +337,27 @@
                }
             });
         };
+          
+
+        // function to send new account information to web api to add it to the database-- check admin html
+        $scope.createNewFacultyPractice = function(facultyDetails) {
+          var facultyupload = angular.copy(facultyDetails);
+          
+          $http.post("practice.php", facultyupload)
+            .then(function (response) {
+               if (response.status == 200) {
+                    if (response.data.status == 'error') {
+                        alert('error: ' + response.data.message);
+                    } else {
+                        // successful
+                        // send user back to home page
+                        $window.location.href = "Facultypractice.html";
+                    }
+               } else {
+                    alert('unexpected error');
+               }
+            });
+        };
                
         //function getLoggedInUser(username) {
           //  console.log(username);
