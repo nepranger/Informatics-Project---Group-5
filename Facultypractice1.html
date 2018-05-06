@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<style type = "text/css">
+    body {
+        background-image: url("i.png");
+        height: 100%; 
+
+    /* Center and scale the image nicely */
+        background-position: center;
+        
+        background-position: inherit;
+    }
+
+ </style>
+ 
+<!--ng-app "movies" defines the angular app that we are using. The name is defined in the movie.module.js -->   
+<html lang='en' ng-app="project">
+<head>
+    <title>Faculty Portal</title>
+    
+    <!-- These are the links to the bootstrap code -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+   <!-- link to angular -->
+   <script src='angular.min.js'></script>
+ 
+   <!-- angular code -->
+   <script src="project.module.js"></script>
+   <script src="data.controller.js"></script>
+   <!--movie. controller.js-allows us to display HTML code-->
+   <script src="project.filter.js"></script>
+</head>
+
+<body>
+ 
+ <!-- Main Content -->
+ <div class="container" ng-controller="dataControl">
+  
+   <h1 class="text-center">Faculty Home</h1>
+   <div class="nav-center">
+        <!-- Student Menu -->
+       <ul class="nav nav-pills nav-justified">
+                  <li class="nav-item">
+                      <a class="nav-link" href="FacultyHome.html">Home</a>
+                  </li>
+  
+                  <li class="nav-item">
+                      <a class="nav-link" href="facultyStudent.html">Students</a>
+                  </li>
+                 
+                  <li class="nav-item">
+                      <a class="nav-link active" href="Facultypractice1.html">Practice Problems</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="index.html" ng-click="logout()">Logout</a>
+                  </li>
+       </ul>
+   </div>
+    <!--<input type= "Text" name= "Practice Problems" align= "center" size= "100" style="width: 500px;"/> -->
+   <form  name="facultyPracticeForm" novalidate>
+        <div align= "middle" shift= "center" >
+
+          <div class="form-group" ng-class="{ 'text-danger': facultyPracticeForm.practice_problems.$invalid && facultyPracticeForm.practice_problems.$touched, 'text-success': !facultyPracticeForm.practice_problems.$invalid && facultyPracticeForm.practice_problems.$touched }">                    
+              <p class="formfield"> 
+              <textarea rows="15" cols="80" class="form-control" ng-class="{ 'is-invalid': facultyPracticeForm.name.$invalid && facultyPracticeForm.name.$touched, 'is-valid': !facultyPracticeForm.name.$invalid && facultyPracticeForm.name.$touched }" name="practice_problems" ng-model="newfaculty.practice_problems" ng-minlength="2" id="practice_problems " required>Practice Problems</textarea>
+              </p>
+              <div ng-show="facultyPracticeForm.name.$invalid && facultyPracticeForm.name.$touched" >The Practice Problems must be at least two characters long</div>
+          </div>
+          <!-- <p class="formfield"> 
+            <textarea id="Practice Problems" name="practice_problems" rows="15" cols="80" required>Practice Problems </textarea> <p> 
+          </p> -->                  
+           <button class="btn btn-default" ng-click="createNewFacultyPractice(newfaculty)" ng-disabled="newAccountForm.$invalid">Upload</button>      
+        </div>
+    <form> 
+       <!--<TEXTAREA NAME="Practice Problem" ROWS=5 COLS=50 > </TEXTAREA> -->
+      
+
+  
+  
+ </div>
+ 
+ 
+</body>
+    

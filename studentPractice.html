@@ -1,5 +1,5 @@
 <!doctype html>
-  <style type = "text/css">
+ <style type = "text/css">
     body {
       height: 200%;
         background-image: url("i.png");
@@ -9,10 +9,12 @@
       }
     
  </style>
+
+ 
 <!--ng-app "project" defines the angular app that we are using. The name is defined in the project.module.js -->   
 <html lang='en' ng-app="project">
 <head>
-    <title>Tutor Portal</title>
+    <title>Faculty Portal</title>
     
     <!-- These are the links to the bootstrap code -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -35,36 +37,25 @@
  <!-- Main Content -->
 <div class="container" ng-controller="dataControl">
   
- <h1 class="text-center">Tutor Home</h1>
+ <h1 class="text-center">Faculty Home</h1>
  <div class="nav-center">
       <!-- Student Menu -->
      <ul class="nav nav-pills nav-justified">
-      <li class="nav-item"><a class="nav-link " href="TutorHome.html">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="tutorSchedule.html">Your Schedule</a></li>
-      <li class="nav-item"><a class="nav-link active" href="tutorPractice.html">Practice Problems</a></li>
+      <li class="nav-item"><a class="nav-link active" href="FacultyHome.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="studentPractice.html">Students</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Tutors</a></li>
+      <li class="nav-item"><a class="nav-link" href="Facultypractice1.html">Practice Problems</a></li>
       <li class="nav-item"><a class="nav-link" href="index.html" ng-click="logout()">Logout</a></li>
 
 
      </ul>
  </div>
-   <table style="width:100%">
-     <tr>         
-         <td>Course ID</td>         
-         <td>Problem</td>
-     </tr>
-     <tr ng-repeat="problem in studentProblemData.courses">         
-         <td>{{problem.course_ID}}</td>         
-         <td>{{problem.text_box}}</td>
-     </tr>
- </table>
+
+
   
-   
-    
-
-</div>     
-
-
-   
+  
+ 
+</div>
  
  
 </body>

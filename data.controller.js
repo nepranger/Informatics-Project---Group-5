@@ -23,6 +23,7 @@
             getAndSetStudentCourses();
             getAndSetAvailableSessions();
             getAndSetScheduledSessions();
+            getAndSetStudentProblemSet();
         }
 
         function getAndSetAccounts() {
@@ -70,6 +71,15 @@
                     console.log($scope.scourseData);
                 });
         }
+        
+        function getAndSetStudentProblemSet() {
+            $http.get('getStudentProblem.php')
+                .then(function (response) {
+                    $scope.studentProblemData = response.data.value;
+                    console.log($scope.studentProblemData);
+                });
+        }
+        
         function getAndSetAvailableSessions() {
             $http.get('getAvailableSessions.php')
                 .then(function (response) {
@@ -130,7 +140,7 @@
                             alert('error:' + response.data.message);
                         } else {
                             //successful
-                            $window.location.href = "login.html";
+                            $window.location.href = "index.html";
                         }
                     } else {
                         alert('unexpected error');
@@ -349,9 +359,10 @@
                     if (response.data.status == 'error') {
                         alert('error: ' + response.data.message);
                     } else {
+                        
                         // successful
                         // send user back to home page
-                        $window.location.href = "Facultypractice.html";
+                        $window.location.href = "Facultypractice1.html";
                     }
                } else {
                     alert('unexpected error');

@@ -73,7 +73,7 @@ CREATE TABLE Student(
 );
 
 --Insert some data into the Student Table
-INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nepranger", "CS:2620", "4");
+INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nepranger", "CS:1110", "4");
 INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("dsmith", "CS:3980", "4");
 INSERT INTO Student (hawk_ID, course_ID, budget) VALUES ("nbueno", "CS:1110", "4");
 
@@ -89,7 +89,7 @@ CREATE TABLE Tutor(
 );
 
 --Insert some data into the Tutor Table
-INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("bwright", "CS:2620", "10");
+INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("bwright", "CS:1110", "10");
 INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("fkeas", "CS:3980", "10");
 INSERT INTO Tutor (hawk_ID, course_ID, hours_per_week) VALUES ("tbaril", "CS:3980", "10");
 
