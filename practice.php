@@ -40,10 +40,8 @@ if (!isset($practice_problems) || (strlen($practice_problems) < 2)) {
 }
 
 
-// if we got this far and $isComplete is true it means we should add the player to the database
 if ($isComplete) {
         
-    // we will set up the insert statement to add this new record to the database
     $insertquery = 'INSERT INTO Problem_Set(course_ID, text_box) VALUES ("CS:1110", "'.$practice_problems.'");';
         
     // run the insert statement

@@ -7,7 +7,7 @@ include_once('dbutils.php');
 //Get a connection to the database
 $db = connectDB($DBHost, $DBUser, $DBPassword, $DBName);
 
-//Set up a query to get information on movies
+//Set up a query to get information
 $query = "SELECT * FROM Account";
 
     //hawk_ID VARCHAR(120) NOT NULL,
@@ -29,7 +29,6 @@ while ($currAccount = nextTuple($result)) {
     $i++;
 }
 
-//put together a JSON object to send back the data on the movies
 $response = array();
 $response['status'] = 'success';
 $response['value']['accounts'] = $accounts;

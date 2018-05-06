@@ -18,7 +18,7 @@ $query = "SELECT Course.course_ID, Course.course_name, Course.course_number, Cou
     //course_number VARCHAR(120) NOT NULL,
     //course_section VARCHAR(255) NOT NULL,
 
-//run the query to get info on players
+//run the query to get info on 
 $result = queryDB($query, $db);
 
 //assign results to an array we can then send back

@@ -40,9 +40,7 @@ if (!isset($hawk_ID) || (strlen($hawk_ID) < 2)) {
 
 
 
-// check if we already have a player with the same name, country, and club as the one we are processing
 if ($isComplete) {
-    // set up a query to check if this player is in the database already
     $query = "SELECT hawk_ID FROM tables WHERE hawk_ID='$hawk_ID';
     
     // we need to run the query

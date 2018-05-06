@@ -62,12 +62,10 @@ if ($isComplete) {
     }
 }
 
-// if we got this far and $isComplete is true it means we should add the player to the database
 if ($isComplete) {
     // create a hashed version of the password
     $hashedpass = crypt($password, getSalt());
     
-    // we will set up the insert statement to add this new record to the database
     $insertquery = "INSERT INTO Account(hawk_ID, hashedpass, name) VALUES ('$hawk_ID', '$hashedpass', '$name')";
 
     // run the insert statement

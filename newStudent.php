@@ -52,20 +52,16 @@ if ($isComplete) {
     // we need to run the query
     $result = queryDB($query, $db);
     
-    // check on the number of records returned
     if (nTuples($result) > 0) {
-        // if we get at least one record back it means the username is taken
         $isComplete = false;
         $errorMessage .= "The username $hawk_ID is already taken. Please select a different username. ";
     }
 }
 
-// if we got this far and $isComplete is true it means we should add the player to the database
 if ($isComplete) {
     // create a hashed version of the password
     $hashedpass = crypt($password, getSalt());
     
-    // we will set up the insert statement to add this new record to the database
     $insertquery = "INSERT INTO Student(hawk_ID, hashedpass, name) VALUES ('$hawk_ID', '$hashedpass', '$name')";
 
     // run the insert statement

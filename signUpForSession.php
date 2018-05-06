@@ -71,7 +71,6 @@ if ($isComplete) {
     $updateQuery = "UPDATE Student SET budget= budget-1 WHERE hawk_ID='$hawk_ID';";
     queryDB($updateQuery, $db);  
 
-    // we will set up the insert statement to add this new record to the database
     $insertquery = "INSERT INTO Tutor_Session(tutor_hawk_ID, student_hawk_ID, course_ID, session_date, slot_ID) VALUES ('$tutor_hawk_ID', '$student_hawk_ID', '$course_ID', '$session_date', '$slot_ID')";
 
     // run the insert statement
