@@ -10,7 +10,7 @@
     
  </style>
 
- 
+<!--ng-app "project" defines the angular app that we are using. The name is defined in the project.module.js -->   
 <html lang='en' ng-app="project">
 <head>
     <title>Student Portal</title>
@@ -39,57 +39,27 @@
  <div class="nav-center">
       <!-- Student Menu -->
      <ul class="nav nav-pills nav-justified">
-      <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="StudentHome.html">Home</a></li>
       <li class="nav-item"><a class="nav-link" href="StudentCourses.html">Your Courses</a></li>
       
-      <li class="nav-item"><a class="nav-link" href="StudentPractice.html">Practice Problems</a></li>
+      <li class="nav-item"><a class="nav-link active" href="StudentPractice.html">Practice Problems</a></li>
       <li class="nav-item"><a class="nav-link" href="index.html" ng-click="logout()">Logout</a></li>
 
 
      </ul>
  </div>
-
-<div class="container">
-    <br>
-    <h1>Scheduled Sessions</h1>
-    <br>
-    <div>
-    <ul class="list-group">
-        <!-- Show Scheduled Session -->
-        <li class="list-group-item" ng-repeat="scheduled in scheduledSessionData.sessions">
-            <div ng-if="scheduled.cancelled_By_Student == 0 && scheduled.cancelled_By_Tutor == 0">
-                <span class="float-left">{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>
-                <button class="btn btn-danger float-right" ng-click="cancelSession(scheduled.session_ID, scheduled.slot_ID)">Cancel session</button>
-            </div>
-            <div ng-if="scheduled.cancelled_By_Student == 1 || scheduled.cancelled_By_Tutor == 1">
-                <span class="float-left"><strong class="text-danger">!!Cancelled!! </strong>{{ scheduled.session_date | date:'MM/dd/yyyy @ h:mma' }} with {{ scheduled.name }}</span>                
-            </div>
-        </li>
-    </ul>
-
-</div>
-
-</div>
-
-<hr>
-
-<div class="container">
-    <br>
-    <h1>Upcoming Available Sessions</h1>
-    <br>
-    <div>
-    <ul class="list-group">
-        <!-- Show available sessions -->
-        <li class="list-group-item" ng-repeat="session in availableSessionData.sessions">
-            <span class="float-left">{{ session.available_date | date:'MM/dd/yyyy @ h:mma' }} with {{ session.name }}</span> <!-- show name of tut -->
-            <button class="btn btn-default float-right" ng-click="signUpForSession(session.slot_ID)">Sign up for session</button>
-        </li>
-    </ul>
-
-</div>
-  
+ 
+ <table style="width:100%">
+     <tr>         
+         <td>Course ID</td>         
+         <td>Problem</td>
+     </tr>
+     <tr ng-repeat="problem in studentProblemData.courses">         
+         <td>{{problem.course_ID}}</td>         
+         <td>{{problem.text_box}}</td>
+     </tr>
+ </table>
  
 </div>
- 
- 
 </body>
+</html>
